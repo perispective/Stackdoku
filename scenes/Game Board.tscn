@@ -1,0 +1,276 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/Game Space.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/Game Board.gd" type="Script" id=2]
+[ext_resource path="res://scenes/InputHUD.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/MainMenu.tscn" type="PackedScene" id=4]
+
+[sub_resource type="ProceduralSky" id=3]
+
+[sub_resource type="Environment" id=2]
+background_mode = 1
+background_sky = SubResource( 3 )
+background_color = Color( 0, 0.952941, 1, 1 )
+ambient_light_color = Color( 1, 1, 1, 1 )
+
+[node name="Game Board" type="Spatial"]
+transform = Transform( 0.953034, 0, 0, 0, 0.953034, 0, 0, 0, 0.953034, 0, 0, 0 )
+script = ExtResource( 2 )
+
+[node name="Player View" type="Camera" parent="."]
+transform = Transform( 0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, 50, 50, 50 )
+environment = SubResource( 2 )
+projection = 1
+fov = 48.3
+size = 50.0
+
+[node name="Game Plane" type="Area" parent="."]
+
+[node name="Space,1,1" parent="Game Plane" groups=["Group 1", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.97483, 0, -9.16899 )
+
+[node name="Space,1,2" parent="Game Plane" groups=["Group 1", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.72483, 0, -9.16899 )
+
+[node name="Space,1,3" parent="Game Plane" groups=["Group 1", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.47483, 0, -9.16899 )
+
+[node name="Space,2,1" parent="Game Plane" groups=["Group 1", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.97483, 0, -6.91899 )
+
+[node name="Space,2,2" parent="Game Plane" groups=["Group 1", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.72483, 0, -6.91899 )
+
+[node name="Space,2,3" parent="Game Plane" groups=["Group 1", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.47483, 0, -6.91899 )
+
+[node name="Space,3,1" parent="Game Plane" groups=["Group 1", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.97483, 0, -4.66899 )
+
+[node name="Space,3,2" parent="Game Plane" groups=["Group 1", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.72483, 0, -4.66899 )
+
+[node name="Space,3,3" parent="Game Plane" groups=["Group 1", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.47483, 0, -4.66899 )
+
+[node name="Space,1,4" parent="Game Plane" groups=["Group 2", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.22483, 0, -9.16899 )
+
+[node name="Space,1,5" parent="Game Plane" groups=["Group 2", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0251656, 0, -9.16899 )
+
+[node name="Space,1,6" parent="Game Plane" groups=["Group 2", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.27517, 0, -9.16899 )
+
+[node name="Space,2,4" parent="Game Plane" groups=["Group 2", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.22483, 0, -6.91899 )
+
+[node name="Space,2,5" parent="Game Plane" groups=["Group 2", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0251656, 0, -6.91899 )
+
+[node name="Space,2,6" parent="Game Plane" groups=["Group 2", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.27517, 0, -6.91899 )
+
+[node name="Space,3,4" parent="Game Plane" groups=["Group 2", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.22483, 0, -4.66899 )
+
+[node name="Space,3,5" parent="Game Plane" groups=["Group 2", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0251656, 0, -4.66899 )
+
+[node name="Space,3,6" parent="Game Plane" groups=["Group 2", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.27517, 0, -4.66899 )
+
+[node name="Space,1,7" parent="Game Plane" groups=["Group 3", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.52517, 0, -9.16899 )
+
+[node name="Space,1,8" parent="Game Plane" groups=["Group 3", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.77517, 0, -9.16899 )
+
+[node name="Space,1,9" parent="Game Plane" groups=["Group 3", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.02517, 0, -9.16899 )
+
+[node name="Space,2,7" parent="Game Plane" groups=["Group 3", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.52517, 0, -6.91899 )
+
+[node name="Space,2,8" parent="Game Plane" groups=["Group 3", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.77517, 0, -6.91899 )
+
+[node name="Space,2,9" parent="Game Plane" groups=["Group 3", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.02517, 0, -6.91899 )
+
+[node name="Space,3,7" parent="Game Plane" groups=["Group 3", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.52517, 0, -4.66899 )
+
+[node name="Space,3,8" parent="Game Plane" groups=["Group 3", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.77517, 0, -4.66899 )
+
+[node name="Space,3,9" parent="Game Plane" groups=["Group 3", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.02517, 0, -4.66899 )
+
+[node name="Space,4,1" parent="Game Plane" groups=["Group 4", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.97483, 0, -2.41899 )
+
+[node name="Space,4,2" parent="Game Plane" groups=["Group 4", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.72483, 0, -2.41899 )
+
+[node name="Space,4,3" parent="Game Plane" groups=["Group 4", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.47483, 0, -2.41899 )
+
+[node name="Space,5,1" parent="Game Plane" groups=["Group 4", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.97483, 0, -0.168993 )
+
+[node name="Space,5,2" parent="Game Plane" groups=["Group 4", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.72483, 0, -0.168993 )
+
+[node name="Space,5,3" parent="Game Plane" groups=["Group 4", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.47483, 0, -0.168993 )
+
+[node name="Space,6,1" parent="Game Plane" groups=["Group 4", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.97483, 0, 2.08101 )
+
+[node name="Space,6,2" parent="Game Plane" groups=["Group 4", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.72483, 0, 2.08101 )
+
+[node name="Space,6,3" parent="Game Plane" groups=["Group 4", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.47483, 0, 2.08101 )
+
+[node name="Space,4,4" parent="Game Plane" groups=["Group 5", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.22483, 0, -2.41899 )
+
+[node name="Space,4,5" parent="Game Plane" groups=["Group 5", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0251656, 0, -2.41899 )
+
+[node name="Space,4,6" parent="Game Plane" groups=["Group 5", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.27517, 0, -2.41899 )
+
+[node name="Space,5,4" parent="Game Plane" groups=["Group 5", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.22483, 0, -0.168993 )
+
+[node name="Space,5,5" parent="Game Plane" groups=["Group 5", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0251656, 0, -0.168993 )
+
+[node name="Space,5,6" parent="Game Plane" groups=["Group 5", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.27517, 0, -0.168993 )
+
+[node name="Space,6,4" parent="Game Plane" groups=["Group 5", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.22483, 0, 2.08101 )
+
+[node name="Space,6,5" parent="Game Plane" groups=["Group 5", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0251656, 0, 2.08101 )
+
+[node name="Space,6,6" parent="Game Plane" groups=["Group 5", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.27517, 0, 2.08101 )
+
+[node name="Space,4,7" parent="Game Plane" groups=["Group 6", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.52517, 0, -2.41899 )
+
+[node name="Space,4,8" parent="Game Plane" groups=["Group 6", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.77517, 0, -2.41899 )
+
+[node name="Space,4,9" parent="Game Plane" groups=["Group 6", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.02517, 0, -2.41899 )
+
+[node name="Space,5,7" parent="Game Plane" groups=["Group 6", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.52517, 0, -0.168993 )
+
+[node name="Space,5,8" parent="Game Plane" groups=["Group 6", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.77517, 0, -0.168993 )
+
+[node name="Space,5,9" parent="Game Plane" groups=["Group 6", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.02517, 0, -0.168993 )
+
+[node name="Space,6,7" parent="Game Plane" groups=["Group 6", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.52517, 0, 2.08101 )
+
+[node name="Space,6,8" parent="Game Plane" groups=["Group 6", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.77517, 0, 2.08101 )
+
+[node name="Space,6,9" parent="Game Plane" groups=["Group 6", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.02517, 0, 2.08101 )
+
+[node name="Space,7,1" parent="Game Plane" groups=["Group 7", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.97483, 0, 4.33101 )
+
+[node name="Space,7,2" parent="Game Plane" groups=["Group 7", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.72483, 0, 4.33101 )
+
+[node name="Space,7,3" parent="Game Plane" groups=["Group 7", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.47483, 0, 4.33101 )
+
+[node name="Space,8,1" parent="Game Plane" groups=["Group 7", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.97483, 0, 6.58101 )
+
+[node name="Space,8,2" parent="Game Plane" groups=["Group 7", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.72483, 0, 6.58101 )
+
+[node name="Space,8,3" parent="Game Plane" groups=["Group 7", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.47483, 0, 6.58101 )
+
+[node name="Space,9,1" parent="Game Plane" groups=["Group 7", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.97483, 0, 8.83101 )
+
+[node name="Space,9,2" parent="Game Plane" groups=["Group 7", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.72483, 0, 8.83101 )
+
+[node name="Space,9,3" parent="Game Plane" groups=["Group 7", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.47483, 0, 8.83101 )
+
+[node name="Space,7,4" parent="Game Plane" groups=["Group 8", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.22483, 0, 4.33101 )
+
+[node name="Space,7,5" parent="Game Plane" groups=["Group 8", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0251656, 0, 4.33101 )
+
+[node name="Space,7,6" parent="Game Plane" groups=["Group 8", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.27517, 0, 4.33101 )
+
+[node name="Space,8,4" parent="Game Plane" groups=["Group 8", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.22483, 0, 6.58101 )
+
+[node name="Space,8,5" parent="Game Plane" groups=["Group 8", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0251656, 0, 6.58101 )
+
+[node name="Space,8,6" parent="Game Plane" groups=["Group 8", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.27517, 0, 6.58101 )
+
+[node name="Space,9,4" parent="Game Plane" groups=["Group 8", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.22483, 0, 8.83101 )
+
+[node name="Space,9,5" parent="Game Plane" groups=["Group 8", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0251656, 0, 8.83101 )
+
+[node name="Space,9,6" parent="Game Plane" groups=["Group 8", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.27517, 0, 8.83101 )
+
+[node name="Space,7,7" parent="Game Plane" groups=["Group 9", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.52517, 0, 4.33101 )
+
+[node name="Space,7,8" parent="Game Plane" groups=["Group 9", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.77517, 0, 4.33101 )
+
+[node name="Space,7,9" parent="Game Plane" groups=["Group 9", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.02517, 0, 4.33101 )
+
+[node name="Space,8,7" parent="Game Plane" groups=["Group 9", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.52517, 0, 6.58101 )
+
+[node name="Space,8,8" parent="Game Plane" groups=["Group 9", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.77517, 0, 6.58101 )
+
+[node name="Space,8,9" parent="Game Plane" groups=["Group 9", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.02517, 0, 6.58101 )
+
+[node name="Space,9,7" parent="Game Plane" groups=["Group 9", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.52517, 0, 8.83101 )
+
+[node name="Space,9,8" parent="Game Plane" groups=["Group 9", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.77517, 0, 8.83101 )
+
+[node name="Space,9,9" parent="Game Plane" groups=["Group 9", "Spaces"] instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.025, 0, 8.831 )
+
+[node name="InputHUD" parent="." instance=ExtResource( 3 )]
+
+[node name="MainMenu" parent="." instance=ExtResource( 4 )]
+
+[node name="Node" type="Node" parent="."]
