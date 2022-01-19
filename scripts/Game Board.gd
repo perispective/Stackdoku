@@ -18,12 +18,17 @@ func _ready():
 	$MainMenu.get_child(1).hide()
 	$MainMenu.get_child(2).hide()
 	$MainMenu.get_child(3).hide()
+	$MainMenu.get_child(4).hide()
+	print($MainMenu.get_child(0).visible)
+	print($MainMenu.get_child(1).visible)
 	Events.connect("space_has_been_clicked_on",self,"_on_space_selected")
 	Events.connect("space_has_been_clicked_off",self,"_on_space_deselected")
 	Events.connect("adjust_space_size",self,"_on_space_size_update")
 	Events.connect("hud_disengage",self,"_on_hud_disengage")
 	Events.connect("new_game_start",self,"_on_new_game_start")
 	Events.connect("space_win_state",self,"_on_space_win_state")
+	Events.connect("toggle_options_menu",self,"_on_toggle_options_menu")
+	Events.connect("toggle_high_score_menu",self,"_on_toggle_high_score_menu")
 	domains = {}
 	spaces_won = {}
 
@@ -71,6 +76,7 @@ func _on_new_game_start() -> void:
 	$MainMenu.get_child(1).show()
 	$MainMenu.get_child(2).hide()
 	$MainMenu.get_child(3).hide()
+	$MainMenu.get_child(4).hide()
 
 func load_grid():
 	domains = sudoku.get_grid()
@@ -89,3 +95,19 @@ func _on_space_win_state(space_name, valid):
 	if spaces_won.size() == num_to_win:
 		Events.emit_signal("game_won")
 		$MainMenu.get_child(3).show()
+
+func _on_toggle_options_menu():
+	if($MainMenu.get_child(2).visible):
+		$MainMenu.get_child(2).hide()
+		$MainMenu.get_child(0).show()
+	else:
+		$MainMenu.get_child(2).show()
+		$MainMenu.get_child(0).hide()
+
+func _on_toggle_high_score_menu():
+	if($MainMenu.get_child(4).visible):
+		$MainMenu.get_child(4).hide()
+		$MainMenu.get_child(2).show()
+	else:
+		$MainMenu.get_child(4).show()
+		$MainMenu.get_child(2).hide()

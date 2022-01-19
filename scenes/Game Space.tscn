@@ -3,7 +3,7 @@
 [ext_resource path="res://assets/Game Space 1.tres" type="Material" id=1]
 [ext_resource path="res://scripts/Game Space.gd" type="Script" id=2]
 [ext_resource path="res://scripts/Label Viewport.gd" type="Script" id=3]
-[ext_resource path="res://open-sans.regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/open-sans.regular.ttf" type="DynamicFontData" id=4]
 
 [sub_resource type="CubeMesh" id=1]
 
