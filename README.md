@@ -28,5 +28,5 @@ Another good question, you must be a professional! This game is still in a sort 
 * Visual upgrades and branding
 
 ## Where can I find this game to play?
-The official landing page for this game is https://www.itch.io/perispectus/stackdoku/
+The official landing page for this game is perispectus.itch.io/stackdoku
 I will update this document at a later date if this game ends up coming to any other platform(s) or storefronts (e.g., mobile, Steam, etc.)
