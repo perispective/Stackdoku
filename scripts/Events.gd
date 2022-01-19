@@ -22,7 +22,6 @@ signal game_won()
 
 signal game_win_stats(moves,time)
 
+signal toggle_options_menu()
 
-
-#get rid of this one...
-signal space_selected(valid)
+signal toggle_high_score_menu()
