@@ -4,7 +4,7 @@
 A 3D Sudoku-like puzzle game
 
 * Author: *Ryan Lelache (aka 'perispectus')*
-* Version: *v0.2.0*
+* Version: *v0.2.2*
 * Release Date: *19 Jan 2022*
 
 ## What is Stackdoku?
@@ -15,15 +15,14 @@ Great question; have you done this before? Anyway -- this game currently works w
 * Procedural generation of 9x9 sudoku game boards
 * HUD for inputting single digits (1-9) into a game board space and a responsive game board that changes space z-height based on input
 * Verifies 'win state' upon successfully inputting the puzzle solution.
-* Tracks number of moves and elapsed game time to keep track of high scores
+* Tracks your best high scores based on number of moves and elapsed game time (visible from the Settings menu)
 * Settings menu framework enabled (WIP)
 
 ## What else are you working on?
 Another good question, you must be a professional! This game is still in a sort of 'alpha' state, in that it's playable but some core functionality is still WIP, and several long-pole features are still being framed out. Details on those listed below, and will update them into the feature list above on later updates.
-* Display locally-saved high scores in the Settings menu (save/load is already enabled)
 * Enable 'Easy' and 'Difficult' modes with varied gameplay rules
-** Easy will restrict you to only entering numbers that haven't been used yet and likely involve some sort of visual indication when you guess right (TBD)
-** Difficult will preference the right 'first guess' and enable a fail state if you overshoot the valid number (e.g., if value is '3' and you put '2' it won't fail, but if you input '4' it will)
+    * Easy will restrict to only entering numbers that haven't been used yet (row, col, or block) and likely involve some sort of visual indicators (TBD)
+    * Difficult will preference the right 'first guess' and enable a fail state if you overshoot the valid number (e.g., if value is '3' and you put '2' it won't fail, but if you input '4' it will fail)
 * Allow sharing of high scores via messaging/social media, all that junk :P
 * Visual upgrades and branding
 

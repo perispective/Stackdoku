@@ -25,3 +25,5 @@ signal game_win_stats(moves,time)
 signal toggle_options_menu()
 
 signal toggle_high_score_menu()
+
+signal clear_game_board()
