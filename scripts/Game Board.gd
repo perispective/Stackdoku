@@ -20,6 +20,7 @@ func _ready():
 	Events.connect("hud_disengage",self,"_on_hud_disengage")
 	Events.connect("new_game_start",self,"_on_new_game_start")
 	Events.connect("space_win_state",self,"_on_space_win_state")
+	Events.connect("toggle_info_menu",self,"_on_toggle_info_menu")
 	Events.connect("toggle_options_menu",self,"_on_toggle_options_menu")
 	Events.connect("toggle_high_score_menu",self,"_on_toggle_high_score_menu")
 	Events.connect("clear_game_board",self,"_on_clear_game_board")
@@ -76,6 +77,7 @@ func _on_new_game_start() -> void:
 	$MainMenu.get_child(2).hide()
 	$MainMenu.get_child(3).hide()
 	$MainMenu.get_child(4).hide()
+	$MainMenu.get_child(5).hide()
 
 func load_grid():
 	domains = sudoku.get_grid()
@@ -111,6 +113,14 @@ func _on_toggle_high_score_menu():
 		$MainMenu.get_child(4).show()
 		$MainMenu.get_child(2).hide()
 
+func _on_toggle_info_menu():
+	if($MainMenu.get_child(5).visible):
+		$MainMenu.get_child(5).hide()
+		$MainMenu.get_child(0).show()
+	else:
+		$MainMenu.get_child(5).show()
+		$MainMenu.get_child(0).hide()
+
 func _on_clear_game_board():
 	$"InputHUD".get_child(0).hide()
 	$MainMenu.get_child(0).show()
@@ -118,6 +128,8 @@ func _on_clear_game_board():
 	$MainMenu.get_child(2).hide()
 	$MainMenu.get_child(3).hide()
 	$MainMenu.get_child(4).hide()
-	for key in domains.keys():
-		domains[key] = 0
-		Events.emit_signal("number_assign", "Space," + key, domains[key])
+	$MainMenu.get_child(5).hide()
+	if (domains.size() > 0):
+		for key in domains.keys():
+			domains[key] = 0
+			Events.emit_signal("number_assign", "Space," + key, domains[key])

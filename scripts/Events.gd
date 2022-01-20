@@ -27,3 +27,5 @@ signal toggle_options_menu()
 signal toggle_high_score_menu()
 
 signal clear_game_board()
+
+signal toggle_info_menu()

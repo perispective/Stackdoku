@@ -5,13 +5,13 @@ var high_score_list
 var new_high_score_move
 var new_high_score_time
 var new_high_score_pos
+signal file_loaded()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Events.connect("game_win_stats",self,"_game_win_stats")
 	high_score_list = {}
 	high_score_list = _high_score_load()
-	_update_score_menu()
 	_set_fonts()
 
 func _set_fonts():
@@ -42,6 +42,7 @@ func _set_fonts():
 	$"High Score Menu/Moves Label".set("custom_fonts/font", dynamic_font_xs)
 	$"High Score Menu/Time Label".set("custom_fonts/font", dynamic_font_xs)
 	$"In-Game Menu/Quit Game Button".set("custom_fonts/font", dynamic_font_s)
+	$"Info Menu/Info Label 1".set("custom_fonts/font", dynamic_font_xs)
 
 func _game_win_stats(moves,time):
 	new_high_score_move = moves + 1
@@ -57,12 +58,12 @@ func _high_score_load():
 		file.open("user://high_score.dat",File.WRITE)
 		for key in range(1,11):
 			high_score_list[key] = "0,0.0"
-			print(high_score_list[key])
+			print(str(key) + ": " + high_score_list[key])
 		file.store_var(high_score_list)
-	else:
-		file.open("user://high_score.dat", File.READ)
+	file.open("user://high_score.dat", File.READ)
 	var content = file.get_var(true)
 	file.close()
+	print("File Loaded")
 	return content
 
 func _high_score_save():
@@ -106,6 +107,7 @@ func _update_high_scores():
 	print(str(new_high_score_pos) + " = " + high_score_list[new_high_score_pos])
 
 func _update_score_menu():
+	print("Update Score Menu started")
 	for pos in range(1,11):
 		var moves_label = get_node("High Score Menu/Win Moves " + str(pos))
 		var time_label = get_node("High Score Menu/Win Time " + str(pos))
@@ -116,6 +118,7 @@ func _update_score_menu():
 
 func _on_Settings_Button_pressed():
 	Events.emit_signal("toggle_options_menu")
+	_update_score_menu()
 
 func _on_Options_Close_Button_pressed():
 	Events.emit_signal("toggle_options_menu")
@@ -135,3 +138,9 @@ func _on_New_Game_Button_pressed():
 
 func _on_Quit_Game_Button_pressed():
 	Events.emit_signal("clear_game_board")
+
+func _on_Info_Button_pressed():
+	Events.emit_signal("toggle_info_menu")
+
+func _on_Info_Close_Button_pressed():
+	Events.emit_signal("toggle_info_menu")
