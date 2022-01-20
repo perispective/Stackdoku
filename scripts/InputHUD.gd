@@ -22,8 +22,37 @@ func _ready():
 	$"Control/Label9Body/Label9".set("custom_fonts/font", dynamic_font)
 	
 func _input(event):
-	if event is InputEventMouseButton:
-		print("Mouse Click/Unclick at: ", event.position)
+	if event is InputEventKey and event.pressed and self.get_child(0).visible:
+		if event.scancode == KEY_1:
+			Events.emit_signal("number_input",1)
+			print("1")
+		if event.scancode == KEY_2:
+			Events.emit_signal("number_input",2)
+			print("2")
+		if event.scancode == KEY_3:
+			Events.emit_signal("number_input",3)
+			print("3")
+		if event.scancode == KEY_4:
+			Events.emit_signal("number_input",4)
+			print("4")
+		if event.scancode == KEY_5:
+			Events.emit_signal("number_input",5)
+			print("5")
+		if event.scancode == KEY_6:
+			Events.emit_signal("number_input",6)
+			print("6")
+		if event.scancode == KEY_7:
+			Events.emit_signal("number_input",7)
+			print("7")
+		if event.scancode == KEY_8:
+			Events.emit_signal("number_input",8)
+			print("8")
+		if event.scancode == KEY_9:
+			Events.emit_signal("number_input",9)
+			print("9")
+		if event.scancode == KEY_ESCAPE:
+			Events.emit_signal("hud_disengage")
+			print("HUD disengage click")
 
 func _on_Label1Body_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:

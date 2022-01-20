@@ -11,6 +11,10 @@ func _ready():
 	Events.connect("game_win_stats",self,"_game_win_stats")
 	high_score_list = {}
 	high_score_list = _high_score_load()
+	_update_score_menu()
+	_set_fonts()
+
+func _set_fonts():
 	var dynamic_font_xs = DynamicFont.new()
 	dynamic_font_xs.font_data = load("res://assets/open-sans.regular.ttf")
 	dynamic_font_xs.size = 25
@@ -35,10 +39,8 @@ func _ready():
 	$"Options Menu/Check Normal".set("custom_fonts/font", dynamic_font_xs)
 	$"Options Menu/Check Difficult".set("custom_fonts/font", dynamic_font_xs)
 	$"Options Menu/Options Close Button".set("custom_fonts/font", dynamic_font_xs)
-
-func _on_New_Game_Button_pressed():
-	Events.emit_signal("new_game_start")
-	print("Start New Game")
+	$"High Score Menu/Moves Label".set("custom_fonts/font", dynamic_font_xs)
+	$"High Score Menu/Time Label".set("custom_fonts/font", dynamic_font_xs)
 
 func _game_win_stats(moves,time):
 	new_high_score_move = moves + 1
@@ -114,5 +116,20 @@ func _on_Score_Close_Button_pressed():
 func _on_High_Score_Button_pressed():
 	Events.emit_signal("toggle_high_score_menu")
 
+func _on_Main_Menu_Button_pressed():
+	Events.emit_signal("clear_game_board")
+
+func _on_New_Game_Button_pressed():
+	Events.emit_signal("new_game_start")
+	print("Start New Game")
+
 func _update_score_menu():
-	yield() #iterate through the labels and update them based on what's in the high_score_list dictionary
+	for pos in range(1,11):
+		var moves_label = get_node("High Score Menu/Win Moves " + str(pos))
+		var time_label = get_node("High Score Menu/Win Time " + str(pos))
+		var moves_update = high_score_list[pos].split(",",false)[0]
+		var time_update = high_score_list[pos].split(",",false)[1]
+		moves_label.text = str(moves_update)
+		time_label.text = str(time_update)
+		
+

@@ -14,13 +14,6 @@ const num_to_win = 5
 var domains
 
 func _ready():
-	$"InputHUD".get_child(0).hide()
-	$MainMenu.get_child(1).hide()
-	$MainMenu.get_child(2).hide()
-	$MainMenu.get_child(3).hide()
-	$MainMenu.get_child(4).hide()
-	print($MainMenu.get_child(0).visible)
-	print($MainMenu.get_child(1).visible)
 	Events.connect("space_has_been_clicked_on",self,"_on_space_selected")
 	Events.connect("space_has_been_clicked_off",self,"_on_space_deselected")
 	Events.connect("adjust_space_size",self,"_on_space_size_update")
@@ -29,8 +22,10 @@ func _ready():
 	Events.connect("space_win_state",self,"_on_space_win_state")
 	Events.connect("toggle_options_menu",self,"_on_toggle_options_menu")
 	Events.connect("toggle_high_score_menu",self,"_on_toggle_high_score_menu")
+	Events.connect("clear_game_board",self,"_on_clear_game_board")
 	domains = {}
 	spaces_won = {}
+	_on_clear_game_board()
 
 func _input(event: InputEvent) -> void:
 	if pressed and event is InputEventMouseMotion and some_space_is_selected == false:
@@ -41,6 +36,10 @@ func _physics_process(delta: float) -> void:
 		pressed = true
 	if Input.is_action_just_released("click"):
 		pressed = false
+
+func _process(delta):
+	if $MainMenu.get_child(0).visible:
+		$"Game Plane".rotation.y += 0.005
 
 func _on_space_selected(space_name: String) -> void:
 	$"InputHUD".get_child(0).show()
@@ -111,3 +110,14 @@ func _on_toggle_high_score_menu():
 	else:
 		$MainMenu.get_child(4).show()
 		$MainMenu.get_child(2).hide()
+
+func _on_clear_game_board():
+	$"InputHUD".get_child(0).hide()
+	$MainMenu.get_child(0).show()
+	$MainMenu.get_child(1).hide()
+	$MainMenu.get_child(2).hide()
+	$MainMenu.get_child(3).hide()
+	$MainMenu.get_child(4).hide()
+	for key in domains.keys():
+		domains[key] = 0
+		Events.emit_signal("number_assign", "Space," + key, domains[key])
