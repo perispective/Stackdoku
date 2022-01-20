@@ -1,4 +1,4 @@
-<img src="https://github.com/perispectus/stackdoku/blob/main/icon_1.png?raw=true" align="left" width="80" height="80">
+<img src="https://github.com/perispectus/stackdoku/blob/main/icon.png?raw=true" align="left" width="80" height="80">
 
 # Stackdoku
 A 3D Sudoku-like puzzle game
@@ -24,6 +24,7 @@ Another good question, you must be a professional! This game is still in a sort 
     * Easy will restrict to only entering numbers that haven't been used yet (row, col, or block) and likely involve some sort of visual indicators (TBD)
     * Difficult will preference the right 'first guess' and enable a fail state if you overshoot the valid number (e.g., if value is '3' and you put '2' it won't fail, but if you input '4' it will fail)
 * Allow sharing of high scores via messaging/social media, all that junk :P
+* Adding sound effects and music
 * Visual upgrades and branding
 
 ## Where can I find this game to play?
