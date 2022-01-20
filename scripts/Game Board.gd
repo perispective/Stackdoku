@@ -9,8 +9,8 @@ var spaces_won
 var sudoku
 const num_rows = 9
 const num_cols = 9
-#const num_to_win = num_rows * num_cols
-const num_to_win = 5
+const num_to_win = num_rows * num_cols
+#const num_to_win = 5
 var domains
 
 func _ready():
