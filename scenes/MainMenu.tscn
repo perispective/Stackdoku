@@ -137,7 +137,6 @@ __meta__ = {
 }
 
 [node name="Options Menu" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -255,7 +254,6 @@ text = "Options icon made by Freepik from flaticon.com"
 align = 2
 
 [node name="Win Screen" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -359,7 +357,6 @@ __meta__ = {
 }
 
 [node name="High Score Menu" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -414,6 +411,9 @@ grow_horizontal = 0
 custom_fonts/font = SubResource( 2 )
 text = "0"
 align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Win Time 1" type="Label" parent="High Score Menu"]
 margin_left = 433.0
@@ -524,7 +524,7 @@ margin_top = 520.0
 margin_right = 220.0
 margin_bottom = 575.0
 custom_fonts/font = SubResource( 2 )
-text = "5th:"
+text = "5th"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -555,7 +555,7 @@ margin_top = 592.0
 margin_right = 220.0
 margin_bottom = 647.0
 custom_fonts/font = SubResource( 2 )
-text = "6th:"
+text = "6th"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -586,7 +586,7 @@ margin_top = 664.0
 margin_right = 220.0
 margin_bottom = 719.0
 custom_fonts/font = SubResource( 2 )
-text = "7th:"
+text = "7th"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -617,7 +617,7 @@ margin_top = 736.0
 margin_right = 220.0
 margin_bottom = 791.0
 custom_fonts/font = SubResource( 2 )
-text = "8th:"
+text = "8th"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -648,7 +648,7 @@ margin_top = 808.0
 margin_right = 220.0
 margin_bottom = 863.0
 custom_fonts/font = SubResource( 2 )
-text = "9th:"
+text = "9th"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -679,7 +679,7 @@ margin_top = 880.0
 margin_right = 220.0
 margin_bottom = 935.0
 custom_fonts/font = SubResource( 2 )
-text = "10th:"
+text = "10th"
 __meta__ = {
 "_edit_use_anchors_": false
 }
