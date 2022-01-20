@@ -4,8 +4,9 @@
 A 3D Sudoku-like puzzle game
 
 * Author: *Ryan Lelache (aka 'perispectus')*
-* Version: *v0.2.2*
-* Release Date: *19 Jan 2022*
+* Version: *v0.2.3*
+* Latest Update: *20 Jan 2022*
+* Initial Release: *19 Jan 2022*
 
 ## What is Stackdoku?
 *Stackdoku* is a casual Sudoku-like puzzle game developed in Godot 3.4. It was developed as an initial game project to test out the features of Godot's 3D engine and learn somewhat more advanced concepts for game development after building mostly in Twine.
