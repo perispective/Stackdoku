@@ -121,7 +121,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Quit Game Button" type="Button" parent="In-Game Menu"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -124.0
+margin_top = -88.0
+margin_right = 128.0
+margin_bottom = -24.0
+custom_fonts/font = SubResource( 12 )
+text = "  Quit Game  "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Options Menu" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -239,6 +255,7 @@ text = "Options icon made by Freepik from flaticon.com"
 align = 2
 
 [node name="Win Screen" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -395,7 +412,7 @@ margin_right = 337.0
 margin_bottom = 287.0
 grow_horizontal = 0
 custom_fonts/font = SubResource( 2 )
-text = "5"
+text = "0"
 align = 2
 
 [node name="Win Time 1" type="Label" parent="High Score Menu"]
@@ -405,7 +422,7 @@ margin_right = 509.0
 margin_bottom = 287.0
 grow_horizontal = 0
 custom_fonts/font = SubResource( 2 )
-text = "9.7"
+text = "0.0"
 align = 2
 
 [node name="Score Label 2" type="Label" parent="High Score Menu"]
@@ -426,7 +443,7 @@ margin_right = 337.0
 margin_bottom = 359.0
 grow_horizontal = 0
 custom_fonts/font = SubResource( 2 )
-text = "5"
+text = "0"
 align = 2
 
 [node name="Win Time 2" type="Label" parent="High Score Menu"]
@@ -436,7 +453,7 @@ margin_right = 509.0
 margin_bottom = 359.0
 grow_horizontal = 0
 custom_fonts/font = SubResource( 2 )
-text = "10.5"
+text = "0.0"
 align = 2
 
 [node name="Score Label 3" type="Label" parent="High Score Menu"]
@@ -457,7 +474,7 @@ margin_right = 337.0
 margin_bottom = 431.0
 grow_horizontal = 0
 custom_fonts/font = SubResource( 2 )
-text = "7"
+text = "0"
 align = 2
 
 [node name="Win Time 3" type="Label" parent="High Score Menu"]
@@ -467,7 +484,7 @@ margin_right = 509.0
 margin_bottom = 431.0
 grow_horizontal = 0
 custom_fonts/font = SubResource( 2 )
-text = "12.9"
+text = "0.0"
 align = 2
 
 [node name="Score Label 4" type="Label" parent="High Score Menu"]
@@ -722,6 +739,7 @@ __meta__ = {
 
 [connection signal="pressed" from="New Game Start/New Game Button" to="." method="_on_New_Game_Button_pressed"]
 [connection signal="pressed" from="New Game Start/Settings Button" to="." method="_on_Settings_Button_pressed"]
+[connection signal="pressed" from="In-Game Menu/Quit Game Button" to="." method="_on_Quit_Game_Button_pressed"]
 [connection signal="pressed" from="Options Menu/High Score Button" to="." method="_on_High_Score_Button_pressed"]
 [connection signal="pressed" from="Options Menu/Options Close Button" to="." method="_on_Options_Close_Button_pressed"]
 [connection signal="pressed" from="Win Screen/New Game Button" to="Win Screen" method="_on_New_Game_Button_pressed_win"]
