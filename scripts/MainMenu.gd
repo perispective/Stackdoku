@@ -5,10 +5,10 @@ var high_score_list
 var new_high_score_move
 var new_high_score_time
 var new_high_score_pos
-signal file_loaded()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# warning-ignore:return_value_discarded
 	Events.connect("game_win_stats",self,"_game_win_stats")
 	high_score_list = {}
 	high_score_list = _high_score_load()
@@ -43,6 +43,7 @@ func _set_fonts():
 	$"High Score Menu/Time Label".set("custom_fonts/font", dynamic_font_xs)
 	$"In-Game Menu/Quit Game Button".set("custom_fonts/font", dynamic_font_s)
 	$"Info Menu/Info Label 1".set("custom_fonts/font", dynamic_font_xs)
+	$"Credits Menu/Credits Label".set("custom_fonts/font", dynamic_font_xs)
 
 func _game_win_stats(moves,time):
 	new_high_score_move = moves + 1
@@ -118,29 +119,67 @@ func _update_score_menu():
 
 func _on_Settings_Button_pressed():
 	Events.emit_signal("toggle_options_menu")
+	Events.emit_signal("button_press","UI")
 	_update_score_menu()
 
 func _on_Options_Close_Button_pressed():
 	Events.emit_signal("toggle_options_menu")
+	Events.emit_signal("button_press","UI")
 
 func _on_Score_Close_Button_pressed():
 	Events.emit_signal("toggle_high_score_menu")
+	Events.emit_signal("button_press","UI")
 
 func _on_High_Score_Button_pressed():
 	Events.emit_signal("toggle_high_score_menu")
+	Events.emit_signal("button_press","UI")
 
 func _on_Main_Menu_Button_pressed():
 	Events.emit_signal("clear_game_board")
+	Events.emit_signal("button_press","UI")
 
 func _on_New_Game_Button_pressed():
 	Events.emit_signal("new_game_start")
+	Events.emit_signal("button_press","UI")
 	print("Start New Game")
 
 func _on_Quit_Game_Button_pressed():
 	Events.emit_signal("clear_game_board")
+	Events.emit_signal("button_press","UI")
 
 func _on_Info_Button_pressed():
 	Events.emit_signal("toggle_info_menu")
+	Events.emit_signal("button_press","UI")
 
 func _on_Info_Close_Button_pressed():
 	Events.emit_signal("toggle_info_menu")
+	Events.emit_signal("button_press","UI")
+
+func _on_Sound_Button_toggled(button_pressed):
+	if button_pressed: #button_pressed = true means sound should be changed to muted
+		Events.emit_signal("toggle_sound",false)
+		$"Options Menu/Game Sound".text = "Sound Off"
+		print("Turned sounds OFF with mute button")
+	else:
+		Events.emit_signal("toggle_sound",true)
+		Events.emit_signal("button_press","UI")
+		$"Options Menu/Game Sound".text = "Sound On"
+		print("Turned sounds ON with mute button")
+
+func _on_Game_Sound_gui_input(event):
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed == false:
+		if $"Options Menu/Sound Button".pressed == true: #true means sound is already muted
+			Events.emit_signal("button_press","UI")
+			$"Options Menu/Sound Button".pressed = false
+			print("Clicked sound label to ON")
+		else:
+			$"Options Menu/Sound Button".pressed = true
+			print("Clicked sound label to OFF")
+
+func _on_Credits_Button_pressed():
+	Events.emit_signal("toggle_credits_menu")
+	Events.emit_signal("button_press","UI")
+
+func _on_Credits_Close_Button_pressed():
+	Events.emit_signal("toggle_credits_menu")
+	Events.emit_signal("button_press","UI")

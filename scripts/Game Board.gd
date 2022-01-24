@@ -4,6 +4,7 @@ extends Spatial
 var pressed := false
 var some_space_is_selected := false
 var spaces_won
+var music_enabled := true
 
 # Sudoku game logic variables
 var sudoku
@@ -23,7 +24,10 @@ func _ready():
 	Events.connect("toggle_info_menu",self,"_on_toggle_info_menu")
 	Events.connect("toggle_options_menu",self,"_on_toggle_options_menu")
 	Events.connect("toggle_high_score_menu",self,"_on_toggle_high_score_menu")
+	Events.connect("toggle_credits_menu",self,"_on_toggle_credits_menu")
+	Events.connect("toggle_sound",self,"_on_toggle_sound")
 	Events.connect("clear_game_board",self,"_on_clear_game_board")
+	Events.connect("button_press",self,"_on_button_press")
 	domains = {}
 	spaces_won = {}
 	_on_clear_game_board()
@@ -46,6 +50,7 @@ func _on_space_selected(space_name: String) -> void:
 	$"InputHUD".get_child(0).show()
 	some_space_is_selected = true
 	Events.emit_signal("board_space_is_selected",true)
+	Events.emit_signal("button_press","HUD")
 	print("selection signal check for space " + space_name)
 	
 func _on_space_deselected() -> void:
@@ -70,6 +75,7 @@ func _on_space_size_update(space_name,size) -> void:
 func _on_new_game_start() -> void:
 	sudoku = Sudoku.new()
 	load_grid()
+	$"Game Plane".rotation.y = 0
 	for key in spaces_won.keys():
 		spaces_won.erase(key)
 	$MainMenu.get_child(0).hide()
@@ -78,6 +84,9 @@ func _on_new_game_start() -> void:
 	$MainMenu.get_child(3).hide()
 	$MainMenu.get_child(4).hide()
 	$MainMenu.get_child(5).hide()
+	$MainMenu.get_child(6).hide()
+	if music_enabled:
+		$Music.play()
 
 func load_grid():
 	domains = sudoku.get_grid()
@@ -121,6 +130,29 @@ func _on_toggle_info_menu():
 		$MainMenu.get_child(5).show()
 		$MainMenu.get_child(0).hide()
 
+func _on_toggle_credits_menu():
+	if($MainMenu.get_child(6).visible):
+		$MainMenu.get_child(6).hide()
+		$MainMenu.get_child(2).show()
+	else:
+		$MainMenu.get_child(6).show()
+		$MainMenu.get_child(2).hide()
+
+func _on_toggle_sound(sound_on: bool):
+	if sound_on:
+		music_enabled = true
+	else:
+		music_enabled = false
+
+func _on_button_press(type):
+	if music_enabled:
+		if type == "UI":
+			$"Click (Treble)".play()
+		elif type == "HUD":
+			$"Click (Bass)".play()
+		elif type == "space":
+			$"Ping SFX".play()
+
 func _on_clear_game_board():
 	$"InputHUD".get_child(0).hide()
 	$MainMenu.get_child(0).show()
@@ -129,7 +161,10 @@ func _on_clear_game_board():
 	$MainMenu.get_child(3).hide()
 	$MainMenu.get_child(4).hide()
 	$MainMenu.get_child(5).hide()
+	$MainMenu.get_child(6).hide()
 	if (domains.size() > 0):
 		for key in domains.keys():
 			domains[key] = 0
 			Events.emit_signal("number_assign", "Space," + key, domains[key])
+	if music_enabled:
+		$Music.stop()

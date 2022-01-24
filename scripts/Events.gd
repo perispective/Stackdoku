@@ -29,3 +29,9 @@ signal toggle_high_score_menu()
 signal clear_game_board()
 
 signal toggle_info_menu()
+
+signal toggle_credits_menu()
+
+signal toggle_sound(sound_on)
+
+signal button_press(type)

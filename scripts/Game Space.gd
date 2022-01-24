@@ -163,6 +163,7 @@ func _on_number_input(value: int):
 		space_input = value #update the input value
 		$"Label Sprite/Label Viewport/Game Space Label".text = str(space_input)
 		adjust_size()
+		Events.emit_signal("button_press","space")
 		deselect_space() #deselect the space, then...
 		Events.emit_signal("space_has_been_clicked_off") #tell the world this space is clicked off
 
