@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/magic-scout-cottages-by-kevin-macleod-from-filmmusic-io.mp3-54b937e2717ae440b9705ba76bfd4540.mp3str"
+
+[deps]
+
+source_file="res://assets/magic-scout-cottages-by-kevin-macleod-from-filmmusic-io.mp3"
+dest_files=[ "res://.import/magic-scout-cottages-by-kevin-macleod-from-filmmusic-io.mp3-54b937e2717ae440b9705ba76bfd4540.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
