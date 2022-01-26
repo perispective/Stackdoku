@@ -20,116 +20,108 @@ func _ready():
 	$"Control/Label7Body/Label7".set("custom_fonts/font", dynamic_font)
 	$"Control/Label8Body/Label8".set("custom_fonts/font", dynamic_font)
 	$"Control/Label9Body/Label9".set("custom_fonts/font", dynamic_font)
-	
+
+# When the HUD is active, number key presses count as moves for numbers 1-9
+# and ESC key will disengage the HUD
 func _input(event):
 	if event is InputEventKey and event.pressed and self.get_child(0).visible:
 		if event.scancode == KEY_1:
 			Events.emit_signal("number_input",1)
-			print("1")
 		if event.scancode == KEY_2:
 			Events.emit_signal("number_input",2)
-			print("2")
 		if event.scancode == KEY_3:
 			Events.emit_signal("number_input",3)
-			print("3")
 		if event.scancode == KEY_4:
 			Events.emit_signal("number_input",4)
-			print("4")
 		if event.scancode == KEY_5:
 			Events.emit_signal("number_input",5)
-			print("5")
 		if event.scancode == KEY_6:
 			Events.emit_signal("number_input",6)
-			print("6")
 		if event.scancode == KEY_7:
 			Events.emit_signal("number_input",7)
-			print("7")
 		if event.scancode == KEY_8:
 			Events.emit_signal("number_input",8)
-			print("8")
 		if event.scancode == KEY_9:
 			Events.emit_signal("number_input",9)
-			print("9")
 		if event.scancode == KEY_ESCAPE:
 			Events.emit_signal("hud_disengage")
-			print("HUD disengage click")
 
+# When the 1 button is pressed, announce the number input
 func _on_Label1Body_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed == true:
 			number_intent = true
 		if event.button_index == BUTTON_LEFT and event.pressed == false:
 			Events.emit_signal("number_input",1)
-			print("1")
 
+# When the 2 button is pressed, announce the number input
 func _on_Label2Body_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed == true:
 			number_intent = true
 		if event.button_index == BUTTON_LEFT and event.pressed == false:
 			Events.emit_signal("number_input",2)
-			print("2")
 
+# When the 3 button is pressed, announce the number input
 func _on_Label3Body_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed == true:
 			number_intent = true
 		if event.button_index == BUTTON_LEFT and event.pressed == false:
 			Events.emit_signal("number_input",3)
-			print("3")
 
+# When the 4 button is pressed, announce the number input
 func _on_Label4Body_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed == true:
 			number_intent = true
 		if event.button_index == BUTTON_LEFT and event.pressed == false:
 			Events.emit_signal("number_input",4)
-			print("4")
 
+# When the 5 button is pressed, announce the number input
 func _on_Label5Body_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed == true:
 			number_intent = true
 		if event.button_index == BUTTON_LEFT and event.pressed == false:
 			Events.emit_signal("number_input",5)
-			print("5")
 
+# When the 6 button is pressed, announce the number input
 func _on_Label6Body_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed == true:
 			number_intent = true
 		if event.button_index == BUTTON_LEFT and event.pressed == false:
 			Events.emit_signal("number_input",6)
-			print("6")
 
+# When the 7 button is pressed, announce the number input
 func _on_Label7Body_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed == true:
 			number_intent = true
 		if event.button_index == BUTTON_LEFT and event.pressed == false:
 			Events.emit_signal("number_input",7)
-			print("7")
 
+# When the 8 button is pressed, announce the number input
 func _on_Label8Body_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed == true:
 			number_intent = true
 		if event.button_index == BUTTON_LEFT and event.pressed == false:
 			Events.emit_signal("number_input",8)
-			print("8")
 
+# When the 9 button is pressed, announce the number input
 func _on_Label9Body_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed == true:
 			number_intent = true
 		if event.button_index == BUTTON_LEFT and event.pressed == false:
 			Events.emit_signal("number_input",9)
-			print("9")
 
+# When HUD is engaged and non-button space is pressed, disengage the HUD
 func _on_BlankSpace_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed == false and number_intent == false:
 			Events.emit_signal("hud_disengage")
-			print("HUD disengage click")
 		elif event.button_index == BUTTON_LEFT and event.pressed == false and number_intent == true:
 			number_intent = false

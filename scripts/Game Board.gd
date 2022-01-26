@@ -10,10 +10,10 @@ var music_enabled := true
 var sudoku
 const num_rows = 9
 const num_cols = 9
-const num_to_win = num_rows * num_cols
-#const num_to_win = 5
-var domains
+const num_to_win = num_rows * num_cols #potentially extensible to larger boards
+var domains #dictionary, key = space ID and value = space value
 
+# Event connections > establish blank domains + spaces won dictionaries > clear board
 func _ready():
 	Events.connect("space_has_been_clicked_on",self,"_on_space_selected")
 	Events.connect("space_has_been_clicked_off",self,"_on_space_deselected")
@@ -32,46 +32,53 @@ func _ready():
 	spaces_won = {}
 	_on_clear_game_board()
 
+# Translate mouse input on the game board screen into rotation of the game board
 func _input(event: InputEvent) -> void:
 	if pressed and event is InputEventMouseMotion and some_space_is_selected == false:
 		$"Game Plane".rotation.y += event.relative.x*0.005
 
+# Physics check for mouse button pressed
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("click"):
 		pressed = true
 	if Input.is_action_just_released("click"):
 		pressed = false
 
+# While only the main menu screen is visible, auto-rotate the game board (pretty...)
 func _process(delta):
 	if $MainMenu.get_child(0).visible:
 		$"Game Plane".rotation.y += 0.005
 
+# When a space is selected with mouse/touch, announce to the world and show the hud
 func _on_space_selected(space_name: String) -> void:
 	$"InputHUD".get_child(0).show()
 	some_space_is_selected = true
 	Events.emit_signal("board_space_is_selected",true)
 	Events.emit_signal("button_press","HUD")
-	print("selection signal check for space " + space_name)
-	
+
+# When a space is deselected by click, announce to the world and hide the hud
 func _on_space_deselected() -> void:
 	$"InputHUD".get_child(0).hide()
 	some_space_is_selected = false
 	Events.emit_signal("board_space_is_selected",false)
-	print("deselection signal check")
 
+# When the hud is disengaged (click-off or ESC), hide the hud
 func _on_hud_disengage() -> void:
 	$"InputHUD".get_child(0).hide()
 	some_space_is_selected = false
-	print("board acks hud disengage")
 
+# When a number is input for a space, update the size
+# If the size is set to 0 or less, change size to allow visibility of label
 func _on_space_size_update(space_name,size) -> void:
 	get_node("Game Plane/" + space_name).scale = Vector3(1,size,1)
 	if size < 1:
 		get_node("Game Plane/" + space_name + "/Label Sprite").translation = Vector3(0,0 - .01,0)
-		print("label translation: " + str(0 - .01))
 	else:
 		get_node("Game Plane/" + space_name + "/Label Sprite").translation = Vector3(0,2.01,0)
 
+# When a new game is started, instantiate the Sudoku class for a new game board
+# Then load the grid, reset the game plane rotation, erase the spaces won dictionary
+# Finally, reset the menus node so only the active game menu is visible + play music
 func _on_new_game_start() -> void:
 	sudoku = Sudoku.new()
 	load_grid()
@@ -88,24 +95,24 @@ func _on_new_game_start() -> void:
 	if music_enabled:
 		$Music.play()
 
+# Pull the new game board values from the sudoku class and add to the local dictionary
 func load_grid():
 	domains = sudoku.get_grid()
 	for key in domains.keys():
-		print(key)
 		Events.emit_signal("number_assign", "Space," + key, domains[key])
-		print(key + " " + str(domains[key]))
 
+# When a new space value is a 'win', add it to the spaces won dictionary
+# If the number of spaces won is equal to the win state, announce the game is won
 func _on_space_win_state(space_name, valid):
 	if (valid):
 		spaces_won[space_name] = valid
-		print("Win - " + str(spaces_won.size()))
 	else:
 		spaces_won.erase(space_name)
-		print("Loss - " + str(spaces_won.size()))
 	if spaces_won.size() == num_to_win:
 		Events.emit_signal("game_won")
 		$MainMenu.get_child(3).show()
 
+# Turns the options menu on and off (returns to the main menu)
 func _on_toggle_options_menu():
 	if($MainMenu.get_child(2).visible):
 		$MainMenu.get_child(2).hide()
@@ -114,6 +121,7 @@ func _on_toggle_options_menu():
 		$MainMenu.get_child(2).show()
 		$MainMenu.get_child(0).hide()
 
+# Turns the high score menu on and off (returns to the options menu)
 func _on_toggle_high_score_menu():
 	if($MainMenu.get_child(4).visible):
 		$MainMenu.get_child(4).hide()
@@ -122,6 +130,7 @@ func _on_toggle_high_score_menu():
 		$MainMenu.get_child(4).show()
 		$MainMenu.get_child(2).hide()
 
+# Turns the info menu on and off (returns to the main menu)
 func _on_toggle_info_menu():
 	if($MainMenu.get_child(5).visible):
 		$MainMenu.get_child(5).hide()
@@ -130,6 +139,7 @@ func _on_toggle_info_menu():
 		$MainMenu.get_child(5).show()
 		$MainMenu.get_child(0).hide()
 
+# Turns the credits menu on and off (returns to the options menu)
 func _on_toggle_credits_menu():
 	if($MainMenu.get_child(6).visible):
 		$MainMenu.get_child(6).hide()
@@ -138,12 +148,14 @@ func _on_toggle_credits_menu():
 		$MainMenu.get_child(6).show()
 		$MainMenu.get_child(2).hide()
 
+# Toggles the sound setting on and off
 func _on_toggle_sound(sound_on: bool):
 	if sound_on:
 		music_enabled = true
 	else:
 		music_enabled = false
 
+# Sound effects when buttons are pressed in the UI
 func _on_button_press(type):
 	if music_enabled:
 		if type == "UI":
@@ -153,6 +165,8 @@ func _on_button_press(type):
 		elif type == "space":
 			$"Ping SFX".play()
 
+# Clears the game board, changes the menu node to the main menu
+# Then clears out the game board dictionary and stops the game music
 func _on_clear_game_board():
 	$"InputHUD".get_child(0).hide()
 	$MainMenu.get_child(0).show()

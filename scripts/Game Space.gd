@@ -47,20 +47,16 @@ func _on_Game_Space_Area_input_event(camera, event, position, normal, shape_idx)
 		if event.button_index == BUTTON_LEFT and event.pressed == true and space_is_selectable == true:
 			if space_is_selected == false:
 				select_intent = true
-				print("select intent set for space " + self.name)
 			else:
 				select_intent = true
-				print("deselect intent set for space " + self.name)
 		elif event.button_index == BUTTON_LEFT and event.pressed == false and space_is_selectable == true:
 			if select_intent == true:
 				if space_is_selected == false:
 					select_space()
 					Events.emit_signal("space_has_been_clicked_on",self.name) #notify the world it's been clicked on
-					print(self.name + " has been selected")
 				else:
 					deselect_space()
 					Events.emit_signal("space_has_been_clicked_off") #otherwise, notify the world it's been clicked off
-					print(self.name + " has been deselected")
 		else:
 			select_intent = false
 
@@ -70,17 +66,14 @@ func test(camera,event,position,normal,shape_idx):
 			if space_is_selected == false: #if this space isn't currently selected...
 				select_space()
 				Events.emit_signal("space_has_been_clicked_on",self.name) #notify the world it's been clicked on
-				print(self.name + " has been selected")
 			else:
 				deselect_space()
 				Events.emit_signal("space_has_been_clicked_off") #otherwise, notify the world it's been clicked off
-				print(self.name + " has been deselected")
 
 #state change for this space when it's been selected
 func select_space():
 	space_is_selected = true #change the state of selection, then...
 	$"Game Space Cube".material_override = select_material #update the material to a selected state
-	print(self.name + " selected")
 	select_intent = false
 	yield()
 
@@ -90,12 +83,14 @@ func deselect_space():
 	$"Game Space Cube".material_override = base_material #return the material to its default state
 	select_intent = false
 	yield()
-	
+
+# Mark the space as selectable and remove selection intent
 func enable_space():
 	space_is_selectable = true
 	select_intent = false
 	yield()
 
+# Mark the space as not selectable and and remove selection intent
 func disable_space():
 	space_is_selectable = false
 	select_intent = false
@@ -142,10 +137,10 @@ func _on_board_space_selected(valid: bool):
 		$"Game Space Cube/Game Space Area/Game Space Hitbox".disabled = false
 		deselect_space() #make sure this space is not selected
 
+# When the HUD is disengaged, make the space selectable
 func _on_hud_disengage() -> void:
 	if space_is_selected == true:
 		deselect_space()
-		print("selected space acks hud disengage")
 	else:
 		space_is_selectable = true #make this space *selectable*, then...
 		$"Game Space Cube/Game Space Area".input_ray_pickable = true
