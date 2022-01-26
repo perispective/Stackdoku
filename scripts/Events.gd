@@ -24,8 +24,8 @@ signal new_game_start()
 # Assigns [value] as the correct number for [space]
 signal number_assign(space,value)
 
-# Space number [space] is in a win state (true) or non-win state (false)
-signal space_win_state(space,valid)
+# Space number [space] is in a win state (true) or non-win state (false) for value [num]
+signal space_win_state(space,valid,num,first)
 
 # The current game has been won
 signal game_won()
@@ -47,3 +47,10 @@ signal toggle_sound(sound_on)
 
 # Button press for sound effects based on [type]
 signal button_press(type)
+
+# Sets the difficulty
+signal set_difficulty(value)
+
+# Removes options from the HUD for easy mode
+signal hud_value_disable(array)
+signal hud_value_reset()

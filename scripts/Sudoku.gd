@@ -47,7 +47,6 @@ func fill_box(row, col):
 
 #Checks whether a particular value is already used in this 3x3 box
 func unused_in_box(row,col,num):
-	
 	for r in [0,1,2]:
 		for c in [0,1,2]:
 			if domains[str(row + r) + "," + str(col + c)] == num:

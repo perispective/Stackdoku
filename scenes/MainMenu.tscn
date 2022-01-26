@@ -219,7 +219,6 @@ margin_top = 424.0
 margin_right = 341.0
 margin_bottom = 487.0
 custom_fonts/font = SubResource( 16 )
-disabled = true
 group = SubResource( 5 )
 text = " Easy"
 expand_icon = true
@@ -251,6 +250,9 @@ disabled = true
 group = SubResource( 5 )
 text = " Difficult"
 expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="High Score Button" type="Button" parent="Options Menu"]
 margin_left = 128.0
@@ -940,6 +942,9 @@ __meta__ = {
 [connection signal="pressed" from="New Game Start/Settings Button" to="." method="_on_Settings_Button_pressed"]
 [connection signal="pressed" from="New Game Start/Info Button" to="." method="_on_Info_Button_pressed"]
 [connection signal="pressed" from="In-Game Menu/Quit Game Button" to="." method="_on_Quit_Game_Button_pressed"]
+[connection signal="toggled" from="Options Menu/Check Easy" to="." method="_on_Check_Easy_toggled"]
+[connection signal="toggled" from="Options Menu/Check Normal" to="." method="_on_Check_Normal_toggled"]
+[connection signal="toggled" from="Options Menu/Check Difficult" to="." method="_on_Check_Difficult_toggled"]
 [connection signal="pressed" from="Options Menu/High Score Button" to="." method="_on_High_Score_Button_pressed"]
 [connection signal="pressed" from="Options Menu/Options Close Button" to="." method="_on_Options_Close_Button_pressed"]
 [connection signal="gui_input" from="Options Menu/Game Sound" to="." method="_on_Game_Sound_gui_input"]

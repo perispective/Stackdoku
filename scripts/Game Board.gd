@@ -4,10 +4,13 @@ extends Spatial
 var pressed := false
 var some_space_is_selected := false
 var spaces_won
+var spaces_used
 var music_enabled := true
+var difficulty
 
 # Sudoku game logic variables
 var sudoku
+const block_size = 3
 const num_rows = 9
 const num_cols = 9
 const num_to_win = num_rows * num_cols #potentially extensible to larger boards
@@ -28,8 +31,10 @@ func _ready():
 	Events.connect("toggle_sound",self,"_on_toggle_sound")
 	Events.connect("clear_game_board",self,"_on_clear_game_board")
 	Events.connect("button_press",self,"_on_button_press")
+	Events.connect("set_difficulty",self,"_on_set_difficulty")
 	domains = {}
 	spaces_won = {}
+	spaces_used = {}
 	_on_clear_game_board()
 
 # Translate mouse input on the game board screen into rotation of the game board
@@ -51,6 +56,9 @@ func _process(delta):
 
 # When a space is selected with mouse/touch, announce to the world and show the hud
 func _on_space_selected(space_name: String) -> void:
+	Events.emit_signal("hud_value_reset")
+	if difficulty == 1:
+		check_values(space_name)
 	$"InputHUD".get_child(0).show()
 	some_space_is_selected = true
 	Events.emit_signal("board_space_is_selected",true)
@@ -66,6 +74,48 @@ func _on_space_deselected() -> void:
 func _on_hud_disengage() -> void:
 	$"InputHUD".get_child(0).hide()
 	some_space_is_selected = false
+
+# On Easy mode, if the selected space is in a row, col, or block 
+# with an already used number, disable it in the HUD
+func check_values(space_name: String):
+	var check_array = [1,2,3,4,5,6,7,8,9]
+	var disable_array = []
+	var space_row = int(space_name.split(",")[1])
+	var space_col = int(space_name.split(",")[2])
+	for num in check_array:
+		if not check_if_safe(space_row,space_col,num):
+			disable_array.append(num)
+	Events.emit_signal("hud_value_disable",disable_array)
+
+#Checks whether a particular value is already used in this 3x3 box
+func unused_in_box(row,col,num):
+	for r in [0,1,2]:
+		for c in [0,1,2]:
+			if spaces_used.has("Space," + str(row + r) + "," + str(col + c)):
+				if spaces_used["Space," + str(row + r) + "," + str(col + c)] == num:
+					return false
+	return true
+
+#Checks whether a particular value is already used in this row?
+func unused_in_row(row,num):
+	for c in range(1,10):
+		if spaces_used.has("Space," + str(row) + "," + str(c)):
+			if spaces_used["Space," + str(row) + "," + str(c)] == num:
+				return false
+	return true
+
+#Checks whether a particular value is already used in this column
+func unused_in_col(col,num):
+	for r in range(1,10):
+		if spaces_used.has("Space," + str(r) + "," + str(col)):
+			if spaces_used["Space," + str(r) + "," + str(col)] == num:
+				return false
+	return true
+
+#Checks against all three validity rules: row, col, and box
+func check_if_safe(row,col,num):
+	return (unused_in_box(row-((row-1)%block_size),col-((col-1)%block_size),num) && unused_in_col(col,num) && unused_in_row(row,num))
+
 
 # When a number is input for a space, update the size
 # If the size is set to 0 or less, change size to allow visibility of label
@@ -85,6 +135,8 @@ func _on_new_game_start() -> void:
 	$"Game Plane".rotation.y = 0
 	for key in spaces_won.keys():
 		spaces_won.erase(key)
+	for key in spaces_used.keys():
+		spaces_used.erase(key)
 	$MainMenu.get_child(0).hide()
 	$MainMenu.get_child(1).show()
 	$MainMenu.get_child(2).hide()
@@ -103,9 +155,10 @@ func load_grid():
 
 # When a new space value is a 'win', add it to the spaces won dictionary
 # If the number of spaces won is equal to the win state, announce the game is won
-func _on_space_win_state(space_name, valid):
-	if (valid):
+func _on_space_win_state(space_name, valid, num, first):
+	if (valid and not first):
 		spaces_won[space_name] = valid
+		spaces_used[space_name] = num
 	else:
 		spaces_won.erase(space_name)
 	if spaces_won.size() == num_to_win:
@@ -182,3 +235,6 @@ func _on_clear_game_board():
 			Events.emit_signal("number_assign", "Space," + key, domains[key])
 	if music_enabled:
 		$Music.stop()
+
+func _on_set_difficulty(value):
+	difficulty = value

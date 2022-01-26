@@ -79,7 +79,6 @@ func _high_score_save():
 
 # Run through the high score list, check to see if the new score beats any prior scores
 func _check_high_scores():
-	print("Check High Score function called")
 	var new_high_score = 0
 	for key in high_score_list.keys(): #iterate through the current high score list to see if the new score fits
 		var score_array = high_score_list[key].split(",",false)
@@ -138,7 +137,6 @@ func _on_Main_Menu_Button_pressed():
 func _on_New_Game_Button_pressed():
 	Events.emit_signal("new_game_start")
 	Events.emit_signal("button_press","UI")
-	print("Start New Game")
 
 func _on_Quit_Game_Button_pressed():
 	Events.emit_signal("clear_game_board")
@@ -165,12 +163,10 @@ func _on_Sound_Button_toggled(button_pressed):
 	if button_pressed: #button_pressed = true means sound should be changed to muted
 		Events.emit_signal("toggle_sound",false)
 		$"Options Menu/Game Sound".text = "Sound Off"
-		print("Turned sounds OFF with mute button")
 	else:
 		Events.emit_signal("toggle_sound",true)
 		Events.emit_signal("button_press","UI")
 		$"Options Menu/Game Sound".text = "Sound On"
-		print("Turned sounds ON with mute button")
 
 # When the sound button label is pressed, toggle the sound button
 func _on_Game_Sound_gui_input(event):
@@ -180,3 +176,13 @@ func _on_Game_Sound_gui_input(event):
 			$"Options Menu/Sound Button".pressed = false
 		else:
 			$"Options Menu/Sound Button".pressed = true
+
+
+func _on_Check_Easy_toggled(button_pressed):
+	Events.emit_signal("set_difficulty",1)
+
+func _on_Check_Normal_toggled(button_pressed):
+	Events.emit_signal("set_difficulty",2)
+
+func _on_Check_Difficult_toggled(button_pressed):
+	Events.emit_signal("set_difficulty",3)
