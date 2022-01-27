@@ -4,8 +4,8 @@
 A 3D Sudoku-like puzzle game
 
 * Author: *Ryan Lelache (aka 'perispectus')*
-* Version: *v0.3.0*
-* Latest Update: *26 Jan 2022*
+* Version: *v0.3.1*
+* Latest Update: *27 Jan 2022*
 * Initial Release: *19 Jan 2022*
 
 ## What is Stackdoku?
@@ -21,6 +21,7 @@ Great question; have you done this before? Anyway -- this game currently works w
 * Ability to toggle between Easy and Normal mode
     * Easy: Color coding to tell you when an input is right(green) or wrong(orange), and disables using right answer inputs via the HUD
     * Normal: No color-coding on right/wrong inputs, able to use the same number multiple times incorrectly without fail state, no disabling of the HUD
+* Addition of Android platform support
 
 ## What else are you working on?
 Another good question, you must be a professional! This game is still in a sort of 'alpha' state, in that it's playable but some core functionality is still WIP, and several long-pole features are still being framed out. Details on those listed below, and will update them into the feature list above on later updates.
@@ -32,4 +33,5 @@ Another good question, you must be a professional! This game is still in a sort 
 ## Where can I find this game to play?
 The official landing page for this game is https://perispectus.itch.io/stackdoku
 
-I will update this document at a later date if this game ends up coming to any other platform(s) or storefronts (e.g., mobile, Steam, etc.)
+## Privacy Policy
+Please find the privacy policy for this game linked here: https://github.com/perispectus/Stackdoku/blob/main/Privacy-Policy.md

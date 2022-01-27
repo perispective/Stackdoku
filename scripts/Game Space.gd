@@ -10,7 +10,7 @@ var select_intent = false
 var space_is_selected = false
 
 #is this space able to be selected right now, yes or no
-var space_is_selectable = true
+var space_is_selectable = false
 
 #what is the numeric value of this space
 var space_value = 0
@@ -37,6 +37,7 @@ func _ready():
 	Events.connect("number_assign",self,"_on_number_assign")
 	Events.connect("set_difficulty",self,"_on_set_difficulty")
 	Events.connect("clear_game_board",self,"_on_clear_board")
+	Events.connect("new_game_start",self,"_on_new_game_start")
 	Events.emit_signal("adjust_space_size",self.name,space_value - space_input + 1)
 	if space_input == 0:
 		$"Label Sprite/Label Viewport/Game Space Label".text = ""
@@ -91,7 +92,12 @@ func select_space():
 #state change for this space when it's been deselected
 func deselect_space():
 	space_is_selected = false #change the state of selection, then...
-	$"Game Space Cube".material_override = base_material #return the material to its default state
+	if difficulty == 1 and space_value == space_input and space_input != 0:
+		$"Game Space Cube".material_override = correct_material
+	elif difficulty == 1 and space_value != space_input and space_input != 0:
+		$"Game Space Cube".material_override = wrong_material
+	else:
+		$"Game Space Cube".material_override = base_material #return the material to its default state
 	select_intent = false
 	yield()
 
@@ -167,15 +173,15 @@ func _on_number_input(value: int):
 	if space_is_selected == true: #confirm it is this space	
 		if value == space_value: #If the new input value is correct, tell the world
 			Events.emit_signal("space_win_state",self.name,true,value,false)
-			if difficulty == 1:
-				base_material = correct_material
+			#if difficulty == 1:
+				#base_material = correct_material
 		else: #Otherwise, tell them the new input value is false...
 			if space_input > 0: #Unless this is the first time, then don't emit the signal
 				Events.emit_signal("space_win_state",self.name,false,value,false)
 			else:
 				Events.emit_signal("space_win_state",self.name,false,value,true)
-			if difficulty == 1:
-				base_material = wrong_material
+			#if difficulty == 1:
+				#base_material = wrong_material
 		space_input = value #update the input value
 		$"Label Sprite/Label Viewport/Game Space Label".text = str(space_input)
 		adjust_size()
@@ -207,3 +213,6 @@ func _on_set_difficulty(value):
 # Reset game space materials on new game / clear board
 func _on_clear_board():
 	determine_space_color()
+
+func _on_new_game_start():
+	space_is_selectable = true

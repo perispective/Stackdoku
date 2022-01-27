@@ -41,6 +41,8 @@ func _ready():
 func _input(event: InputEvent) -> void:
 	if pressed and event is InputEventMouseMotion and some_space_is_selected == false:
 		$"Game Plane".rotation.y += event.relative.x*0.005
+	elif event is InputEventScreenDrag and some_space_is_selected == false:
+		$"Game Plane".rotation.y += event.relative.x*0.005
 
 # Physics check for mouse button pressed
 func _physics_process(delta: float) -> void:
@@ -161,6 +163,7 @@ func _on_space_win_state(space_name, valid, num, first):
 		spaces_used[space_name] = num
 	else:
 		spaces_won.erase(space_name)
+		spaces_used[space_name] = num
 	if spaces_won.size() == num_to_win:
 		Events.emit_signal("game_won")
 		$MainMenu.get_child(3).show()

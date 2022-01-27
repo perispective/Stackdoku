@@ -1,0 +1,4 @@
+#Thu Jan 27 01:53:13 EST 2022
+base.0=C\:\\Users\\rjlel\\Documents\\Godot Projects\\Voxel Sudoku\\android\\build\\build\\intermediates\\dex\\release\\mergeDexRelease\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
