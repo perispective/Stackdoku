@@ -29,6 +29,8 @@ func _set_fonts():
 	$"New Game Start/New Game Button".set("custom_fonts/font", dynamic_font_l)
 	$"In-Game Menu/Game Timer".set("custom_fonts/font", dynamic_font_s)
 	$"In-Game Menu/Game Moves".set("custom_fonts/font", dynamic_font_s)
+	$"In-Game Menu/Quit Game Button".set("custom_fonts/font", dynamic_font_s)
+	$"In-Game Menu/Camera Label".set("custom_fonts/font", dynamic_font_xs)
 	$"Win Screen/Moves Label".set("custom_fonts/font", dynamic_font_s)
 	$"Win Screen/Time Label".set("custom_fonts/font", dynamic_font_s)
 	$"Win Screen/Win Moves".set("custom_fonts/font", dynamic_font_s)
@@ -43,7 +45,6 @@ func _set_fonts():
 	$"Options Menu/Options Close Button".set("custom_fonts/font", dynamic_font_xs)
 	$"High Score Menu/Moves Label".set("custom_fonts/font", dynamic_font_xs)
 	$"High Score Menu/Time Label".set("custom_fonts/font", dynamic_font_xs)
-	$"In-Game Menu/Quit Game Button".set("custom_fonts/font", dynamic_font_s)
 	$"Info Menu/Info Label 1".set("custom_fonts/font", dynamic_font_xs)
 	$"Credits Menu/Credits Label".set("custom_fonts/font", dynamic_font_xs)
 
@@ -133,6 +134,7 @@ func _on_High_Score_Button_pressed():
 func _on_Main_Menu_Button_pressed():
 	Events.emit_signal("clear_game_board")
 	Events.emit_signal("button_press","UI")
+	$"In-Game Menu/Camera Button".pressed = false
 
 func _on_New_Game_Button_pressed():
 	Events.emit_signal("new_game_start")
@@ -141,6 +143,7 @@ func _on_New_Game_Button_pressed():
 func _on_Quit_Game_Button_pressed():
 	Events.emit_signal("clear_game_board")
 	Events.emit_signal("button_press","UI")
+	$"In-Game Menu/Camera Button".pressed = false
 
 func _on_Info_Button_pressed():
 	Events.emit_signal("toggle_info_menu")
@@ -186,3 +189,12 @@ func _on_Check_Normal_toggled(button_pressed):
 
 func _on_Check_Difficult_toggled(button_pressed):
 	Events.emit_signal("set_difficulty",3)
+
+func _on_Camera_Button_toggled(button_pressed):
+	if button_pressed == true: # Pressed = Top Down
+		Events.emit_signal("toggle_camera",2)
+		$"In-Game Menu/Camera Label".text = "Top-Down"
+	else: # !Pressed = Angled (Default)
+		Events.emit_signal("toggle_camera",1)
+		$"In-Game Menu/Camera Label".text = "Angle"
+	

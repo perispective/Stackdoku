@@ -54,3 +54,6 @@ signal set_difficulty(value)
 # Removes options from the HUD for easy mode
 signal hud_value_disable(array)
 signal hud_value_reset()
+
+# Adjusts the camera view from Isometric to Top Down
+signal toggle_camera(number)

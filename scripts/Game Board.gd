@@ -7,6 +7,7 @@ var spaces_won
 var spaces_used
 var music_enabled := true
 var difficulty
+var camera := 1
 
 # Sudoku game logic variables
 var sudoku
@@ -32,6 +33,7 @@ func _ready():
 	Events.connect("clear_game_board",self,"_on_clear_game_board")
 	Events.connect("button_press",self,"_on_button_press")
 	Events.connect("set_difficulty",self,"_on_set_difficulty")
+	Events.connect("toggle_camera",self,"_on_toggle_camera")
 	domains = {}
 	spaces_won = {}
 	spaces_used = {}
@@ -39,9 +41,9 @@ func _ready():
 
 # Translate mouse input on the game board screen into rotation of the game board
 func _input(event: InputEvent) -> void:
-	if pressed and event is InputEventMouseMotion and some_space_is_selected == false:
+	if pressed and event is InputEventMouseMotion and some_space_is_selected == false and camera == 1:
 		$"Game Plane".rotation.y += event.relative.x*0.005
-	elif event is InputEventScreenDrag and some_space_is_selected == false:
+	elif event is InputEventScreenDrag and some_space_is_selected == false and camera == 1:
 		$"Game Plane".rotation.y += event.relative.x*0.005
 
 # Physics check for mouse button pressed
@@ -239,5 +241,16 @@ func _on_clear_game_board():
 	if music_enabled:
 		$Music.stop()
 
+# Adjusts the local difficulty variable based on the selected game difficulty level
 func _on_set_difficulty(value):
 	difficulty = value
+
+# Toggles the camera and related controls between angled/ortho and bird's eye/top-down views
+func _on_toggle_camera(number):
+	if number == 1:
+		$"Player View".current = true
+		camera = 1
+	else:
+		$"Birds Eye View".current = true
+		camera = 2
+		$"Game Plane".rotation.y = 0
