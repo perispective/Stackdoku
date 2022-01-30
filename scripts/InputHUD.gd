@@ -132,12 +132,14 @@ func _on_BlankSpace_input_event(viewport, event, shape_idx):
 		elif event.button_index == BUTTON_LEFT and event.pressed == false and number_intent == true:
 			number_intent = false
 
+# For Easy mode, make it so the HUD knows which numbers to display (which correct values have not been used in the same row, column, or block of spaces)
 func _on_hud_value_disable(disable_array):
 	for num in disable_array:
 		get_node("Control/Label" + str(num) + "Body").input_pickable = false
 		get_node("Control/Label" + str(num) + "Body").visible = false
 		disabled[num] = true
 
+# Reset for disabled HUD inputs to avoid conflicts on new games and difficulty changes between rounds
 func _on_hud_value_reset():
 	for num in range(1,10):
 		get_node("Control/Label" + str(num) + "Body").input_pickable = true

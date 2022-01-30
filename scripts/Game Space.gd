@@ -38,6 +38,7 @@ func _ready():
 	Events.connect("set_difficulty",self,"_on_set_difficulty")
 	Events.connect("clear_game_board",self,"_on_clear_board")
 	Events.connect("new_game_start",self,"_on_new_game_start")
+	Events.connect("toggle_camera",self,"_on_toggle_camera")
 	Events.emit_signal("adjust_space_size",self.name,space_value - space_input + 1)
 	if space_input == 0:
 		$"Label Sprite/Label Viewport/Game Space Label".text = ""
@@ -214,5 +215,15 @@ func _on_set_difficulty(value):
 func _on_clear_board():
 	determine_space_color()
 
+# When a new game starts, make the space selectable 
 func _on_new_game_start():
 	space_is_selectable = true
+
+# When in bird's eye view (Cam 2), add a visible top-down outline effect
+func _on_toggle_camera(number):
+	if number == 1:
+		$"Birds Eye Outline".visible = false
+		print("Hide Outline")
+	else:
+		$"Birds Eye Outline".visible = true
+		print("Show Outline")
