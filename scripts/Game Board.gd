@@ -3,11 +3,11 @@ extends Spatial
 # Board state variables
 var pressed := false
 var some_space_is_selected := false
-var spaces_won
-var spaces_used
+var spaces_won # During gameplay, which spaces have the correct value (true) or an explicitly wrong value (false)
+var spaces_used # During gameplay, which spaces have which values; to assist with InputHUD checks on Easy mode
 var music_enabled := true
-var difficulty
-var camera := 1
+var difficulty # 1 = Easy -- 2 = Normal -- 3 = Difficult
+var camera := 1 # Camera 1 = Isometric/Angled -- Camera 2 = Bird's Eye/Top-Down
 
 # Sudoku game logic variables
 var sudoku

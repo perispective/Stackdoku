@@ -180,7 +180,7 @@ func _on_Game_Sound_gui_input(event):
 		else:
 			$"Options Menu/Sound Button".pressed = true
 
-
+# Adjusts the difficulty depending on which difficulty check is in the toggled state
 func _on_Check_Easy_toggled(button_pressed):
 	Events.emit_signal("set_difficulty",1)
 
@@ -190,6 +190,7 @@ func _on_Check_Normal_toggled(button_pressed):
 func _on_Check_Difficult_toggled(button_pressed):
 	Events.emit_signal("set_difficulty",3)
 
+# Adjusts the camera between Angled (1) and Bird's Eye (2) views when the button is toggled
 func _on_Camera_Button_toggled(button_pressed):
 	if button_pressed == true: # Pressed = Top Down
 		Events.emit_signal("toggle_camera",2)
