@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/Game Space 1.tres" type="Material" id=1]
 [ext_resource path="res://scripts/Game Space.gd" type="Script" id=2]
@@ -9,10 +9,17 @@
 
 [sub_resource type="BoxShape" id=2]
 
+[sub_resource type="CubeMesh" id=4]
+size = Vector3( 2.13, 0.1, 2.13 )
+
+[sub_resource type="SpatialMaterial" id=5]
+params_diffuse_mode = 4
+albedo_color = Color( 0, 0, 0, 1 )
+
 [sub_resource type="ViewportTexture" id=3]
 viewport_path = NodePath("Label Sprite/Label Viewport")
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=6]
 size = 190
 font_data = ExtResource( 4 )
 
@@ -31,6 +38,12 @@ material/0 = ExtResource( 1 )
 [node name="Game Space Hitbox" type="CollisionShape" parent="Game Space Cube/Game Space Area"]
 shape = SubResource( 2 )
 
+[node name="Birds Eye Outline" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0 )
+visible = false
+mesh = SubResource( 4 )
+material/0 = SubResource( 5 )
+
 [node name="Label Sprite" type="Sprite3D" parent="."]
 transform = Transform( 1.06347, 0, 0, 0, -3.27835e-08, 1, 0, -1.06667, -6.21673e-08, 0, 2.01, 0 )
 texture = SubResource( 3 )
@@ -45,7 +58,7 @@ script = ExtResource( 3 )
 modulate = Color( 0, 0, 0, 1 )
 margin_right = 40.0
 margin_bottom = 14.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 6 )
 align = 1
 
 [connection signal="input_event" from="Game Space Cube/Game Space Area" to="." method="_on_Game_Space_Area_input_event"]
