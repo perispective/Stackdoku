@@ -19,7 +19,7 @@ func _ready():
 func _set_fonts():
 	var dynamic_font_xs = DynamicFont.new() # Extra Small Font
 	dynamic_font_xs.font_data = load("res://assets/open-sans.regular.ttf")
-	dynamic_font_xs.size = 25
+	dynamic_font_xs.size = 22
 	var dynamic_font_s = DynamicFont.new() # Small Font
 	dynamic_font_s.font_data = load("res://assets/open-sans.regular.ttf")
 	dynamic_font_s.size = 40

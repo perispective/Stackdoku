@@ -61,10 +61,10 @@
                     "from": {
                         "startLines": "3,5",
                         "startColumns": "1,1",
-                        "startOffsets": "53,147",
+                        "startOffsets": "56,152",
                         "endLines": "3,8",
                         "endColumns": "92,9",
-                        "endOffsets": "144,371"
+                        "endOffsets": "147,379"
                     },
                     "to": {
                         "startLines": "123,124",
