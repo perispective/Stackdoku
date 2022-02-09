@@ -14,6 +14,7 @@ func _ready():
 	moves = 0
 	Events.connect("new_game_start",self,"_on_new_game_start")
 	Events.connect("game_won",self,"_on_game_won")
+	Events.connect("game_lost",self,"_on_game_lost")
 	Events.connect("number_input",self,"_on_number_input")
 
 # Update the game timer for every 0.1 second
@@ -41,3 +42,7 @@ func _on_game_won():
 	game_win_time = time_elapsed
 	game_win_moves = moves
 	Events.emit_signal("game_win_stats",game_win_moves,game_win_time)
+
+# When the game is lost, stop the game clock and move counter
+func _on_game_lost():
+	timer_active = false

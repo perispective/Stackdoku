@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://scripts/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://assets/open-sans.regular.ttf" type="DynamicFontData" id=2]
@@ -15,21 +15,25 @@
 [ext_resource path="res://assets/camera top.png" type="Texture" id=13]
 [ext_resource path="res://assets/tutorial.webm" type="VideoStream" id=14]
 [ext_resource path="res://scripts/VideoPlayer.gd" type="Script" id=15]
+[ext_resource path="res://scripts/Lose Screen.gd" type="Script" id=16]
 
-[sub_resource type="DynamicFont" id=14]
+[sub_resource type="DynamicFont" id=16]
 size = 55
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=15]
+[sub_resource type="DynamicFont" id=17]
 size = 40
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=16]
+[sub_resource type="DynamicFont" id=18]
 size = 22
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=1]
 size = 55
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=19]
 font_data = ExtResource( 2 )
 
 [sub_resource type="ButtonGroup" id=5]
@@ -55,11 +59,18 @@ font_data = ExtResource( 2 )
 size = 25
 font_data = ExtResource( 2 )
 
+[sub_resource type="DynamicFont" id=14]
+size = 55
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=15]
+size = 40
+font_data = ExtResource( 2 )
+
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource( 1 )
 
 [node name="New Game Start" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -76,7 +87,7 @@ margin_left = -177.0
 margin_top = -66.576
 margin_right = 172.0
 margin_bottom = 15.424
-custom_fonts/font = SubResource( 14 )
+custom_fonts/font = SubResource( 16 )
 text = "  New Game  "
 __meta__ = {
 "_edit_use_anchors_": false
@@ -132,6 +143,7 @@ __meta__ = {
 }
 
 [node name="In-Game Menu" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -149,7 +161,7 @@ margin_right = -18.0
 margin_bottom = 71.0
 grow_horizontal = 0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 15 )
+custom_fonts/font = SubResource( 17 )
 text = "0.0s"
 align = 2
 __meta__ = {
@@ -162,7 +174,7 @@ margin_top = 18.0
 margin_right = 55.0
 margin_bottom = 73.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 15 )
+custom_fonts/font = SubResource( 17 )
 text = "0"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -177,7 +189,7 @@ margin_left = -124.0
 margin_top = -88.0
 margin_right = 128.0
 margin_bottom = -24.0
-custom_fonts/font = SubResource( 15 )
+custom_fonts/font = SubResource( 17 )
 text = "  Quit Game  "
 __meta__ = {
 "_edit_use_anchors_": false
@@ -206,7 +218,7 @@ margin_top = 8.0
 margin_right = 32.5
 margin_bottom = 43.0
 grow_horizontal = 2
-custom_fonts/font = SubResource( 16 )
+custom_fonts/font = SubResource( 18 )
 text = "Angle"
 align = 1
 __meta__ = {
@@ -259,22 +271,61 @@ __meta__ = {
 }
 
 [node name="Game Difficulty" type="Label" parent="Options Menu"]
-margin_left = 133.0
+margin_left = 88.0
 margin_top = 360.0
-margin_right = 429.0
+margin_right = 384.0
 margin_bottom = 415.0
-custom_fonts/font = SubResource( 15 )
+custom_fonts/font = SubResource( 17 )
 text = "Difficulty:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Hints Label" type="Label" parent="Options Menu"]
+margin_left = 256.0
+margin_top = 440.0
+margin_right = 536.0
+margin_bottom = 490.0
+custom_colors/font_color = Color( 1, 0.568627, 0, 1 )
+custom_fonts/font = SubResource( 19 )
+text = "- No color-coded visual hints on guesses"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Valid Label" type="Label" parent="Options Menu"]
+margin_left = 256.0
+margin_top = 500.0
+margin_right = 536.0
+margin_bottom = 550.0
+custom_colors/font_color = Color( 1, 0.568627, 0, 1 )
+custom_fonts/font = SubResource( 19 )
+text = "- Input any number in any space, even wrong ones"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Lose Label" type="Label" parent="Options Menu"]
+margin_left = 256.0
+margin_top = 560.0
+margin_right = 536.0
+margin_bottom = 610.0
+custom_colors/font_color = Color( 0, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 19 )
+text = "- Play 'til you win"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Check Easy" type="CheckBox" parent="Options Menu"]
-margin_left = 157.0
+margin_left = 104.0
 margin_top = 424.0
-margin_right = 341.0
+margin_right = 224.0
 margin_bottom = 487.0
-custom_fonts/font = SubResource( 16 )
+custom_fonts/font = SubResource( 18 )
 group = SubResource( 5 )
 text = " Easy"
 expand_icon = true
@@ -283,11 +334,11 @@ __meta__ = {
 }
 
 [node name="Check Normal" type="CheckBox" parent="Options Menu"]
-margin_left = 157.0
+margin_left = 104.0
 margin_top = 496.0
-margin_right = 341.0
+margin_right = 224.0
 margin_bottom = 559.0
-custom_fonts/font = SubResource( 16 )
+custom_fonts/font = SubResource( 18 )
 pressed = true
 group = SubResource( 5 )
 text = " Normal"
@@ -297,12 +348,11 @@ __meta__ = {
 }
 
 [node name="Check Difficult" type="CheckBox" parent="Options Menu"]
-margin_left = 157.0
+margin_left = 104.0
 margin_top = 568.0
-margin_right = 341.0
+margin_right = 224.0
 margin_bottom = 631.0
-custom_fonts/font = SubResource( 16 )
-disabled = true
+custom_fonts/font = SubResource( 18 )
 group = SubResource( 5 )
 text = " Difficult"
 expand_icon = true
@@ -315,7 +365,7 @@ margin_left = 128.0
 margin_top = 672.0
 margin_right = 480.0
 margin_bottom = 736.0
-custom_fonts/font = SubResource( 15 )
+custom_fonts/font = SubResource( 17 )
 text = "View High Scores"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -330,16 +380,16 @@ margin_left = 180.0
 margin_top = -384.0
 margin_right = 228.0
 margin_bottom = -336.0
-custom_fonts/font = SubResource( 16 )
+custom_fonts/font = SubResource( 18 )
 text = "X"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Game Sound" type="Label" parent="Options Menu"]
-margin_left = 208.0
+margin_left = 168.0
 margin_top = 260.0
-margin_right = 432.0
+margin_right = 392.0
 margin_bottom = 315.0
 mouse_filter = 0
 custom_fonts/font = SubResource( 12 )
@@ -349,10 +399,10 @@ __meta__ = {
 }
 
 [node name="Sound Button" type="TextureButton" parent="Options Menu"]
-margin_left = 128.0
+margin_left = 88.0
 margin_top = 256.0
-margin_right = 192.0
-margin_bottom = 320.0
+margin_right = 600.0
+margin_bottom = 768.0
 rect_scale = Vector2( 0.119998, 0.119998 )
 toggle_mode = true
 texture_normal = ExtResource( 11 )
@@ -410,7 +460,7 @@ margin_left = -117.0
 margin_top = -216.0
 margin_right = 117.0
 margin_bottom = -140.0
-custom_fonts/font = SubResource( 14 )
+custom_fonts/font = SubResource( 16 )
 text = "You won!"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -421,7 +471,7 @@ margin_left = 128.0
 margin_top = 400.0
 margin_right = 259.0
 margin_bottom = 455.0
-custom_fonts/font = SubResource( 15 )
+custom_fonts/font = SubResource( 17 )
 text = "Moves:"
 
 [node name="Time Label" type="Label" parent="Win Screen"]
@@ -429,7 +479,7 @@ margin_left = 128.0
 margin_top = 480.0
 margin_right = 230.0
 margin_bottom = 535.0
-custom_fonts/font = SubResource( 15 )
+custom_fonts/font = SubResource( 17 )
 text = "Time:"
 
 [node name="Win Moves" type="Label" parent="Win Screen"]
@@ -438,7 +488,7 @@ margin_top = 400.0
 margin_right = 473.0
 margin_bottom = 455.0
 grow_horizontal = 0
-custom_fonts/font = SubResource( 15 )
+custom_fonts/font = SubResource( 17 )
 text = "0"
 align = 2
 
@@ -448,7 +498,7 @@ margin_top = 480.0
 margin_right = 475.0
 margin_bottom = 535.0
 grow_horizontal = 0
-custom_fonts/font = SubResource( 15 )
+custom_fonts/font = SubResource( 17 )
 text = "0.0s"
 align = 2
 
@@ -461,7 +511,7 @@ margin_left = -148.0
 margin_top = 64.0
 margin_right = 143.0
 margin_bottom = 130.0
-custom_fonts/font = SubResource( 15 )
+custom_fonts/font = SubResource( 17 )
 text = "  New Game  "
 __meta__ = {
 "_edit_use_anchors_": false
@@ -853,7 +903,7 @@ margin_left = 272.0
 margin_top = 192.0
 margin_right = 349.0
 margin_bottom = 227.0
-custom_fonts/font = SubResource( 16 )
+custom_fonts/font = SubResource( 18 )
 text = "Moves"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -864,13 +914,14 @@ margin_left = 448.0
 margin_top = 192.0
 margin_right = 505.0
 margin_bottom = 227.0
-custom_fonts/font = SubResource( 16 )
+custom_fonts/font = SubResource( 18 )
 text = "Time"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Info Menu" type="Control" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -921,7 +972,7 @@ margin_left = -219.0
 margin_top = -320.0
 margin_right = 220.0
 margin_bottom = 376.0
-custom_fonts/font = SubResource( 16 )
+custom_fonts/font = SubResource( 18 )
 text = "In Stackdoku, the goal is to fill the right number (1-9) into every space in as few moves and as quickly as possible. Each number can only appear once in each row, column, and block of nine spaces.
 
 
@@ -1026,7 +1077,7 @@ margin_left = -226.0
 margin_top = -272.0
 margin_right = 226.0
 margin_bottom = 295.0
-custom_fonts/font = SubResource( 16 )
+custom_fonts/font = SubResource( 18 )
 text = "Developed by Ryan Lelache, aka 'perispectus' <https://perispectus.itch.io>
 
 Music: 'Magic Scout Cottages' by Kevin MacLeod <https://incompetech.filmmusic.io/song/4672-magic-
@@ -1036,6 +1087,82 @@ Menu Icons made by Freepik from <https://flaticon.com>
 
 SFX made by irinairinafomicheva from <https://pixabay.com>"
 autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Lose Screen" type="Control" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -512.0
+margin_right = 300.0
+margin_bottom = 512.0
+mouse_filter = 2
+script = ExtResource( 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Lose Overlay" type="Panel" parent="Lose Screen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -244.0
+margin_top = -168.0
+margin_right = 245.0
+margin_bottom = 196.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Lose Title" type="Label" parent="Lose Screen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -117.0
+margin_top = -134.0
+margin_right = 117.0
+margin_bottom = -58.0
+grow_horizontal = 2
+custom_fonts/font = SubResource( 14 )
+text = "You lose!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="New Game Button" type="Button" parent="Lose Screen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -148.0
+margin_top = -16.0
+margin_right = 143.0
+margin_bottom = 50.0
+custom_fonts/font = SubResource( 15 )
+text = "  New Game  "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Main Menu Button" type="Button" parent="Lose Screen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -148.0
+margin_top = 88.0
+margin_right = 143.0
+margin_bottom = 154.0
+custom_fonts/font = SubResource( 10 )
+text = "  Main Menu  "
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1058,3 +1185,5 @@ __meta__ = {
 [connection signal="pressed" from="High Score Menu/Score Close Button" to="." method="_on_Score_Close_Button_pressed"]
 [connection signal="pressed" from="Info Menu/Info Close Button" to="." method="_on_Info_Close_Button_pressed"]
 [connection signal="pressed" from="Credits Menu/Credits Close Button" to="." method="_on_Credits_Close_Button_pressed"]
+[connection signal="pressed" from="Lose Screen/New Game Button" to="Lose Screen" method="_on_New_Game_Button_pressed_lose"]
+[connection signal="pressed" from="Lose Screen/Main Menu Button" to="." method="_on_Main_Menu_Button_pressed"]

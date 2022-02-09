@@ -7,10 +7,13 @@ var number_intent = false
 
 var disabled
 
+var button_press_color = Color(.6,.6,.6)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Events.connect("hud_value_disable",self,"_on_hud_value_disable")
 	Events.connect("hud_value_reset",self,"_on_hud_value_reset")
+	button_press_color.s -= 0.9
 	var dynamic_font = DynamicFont.new()
 	dynamic_font.font_data = load("res://assets/open-sans.regular.ttf")
 	dynamic_font.size = 65
@@ -57,72 +60,90 @@ func _on_Label1Body_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed == true:
 			number_intent = true
+			$Control/Label1Body/LabelSprite.modulate = button_press_color
 		if event.button_index == BUTTON_LEFT and event.pressed == false:
 			Events.emit_signal("number_input",1)
+			_on_mouse_up()
 
 # When the 2 button is pressed, announce the number input
 func _on_Label2Body_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed == true:
 			number_intent = true
+			$Control/Label2Body/LabelSprite.modulate = button_press_color
 		if event.button_index == BUTTON_LEFT and event.pressed == false:
 			Events.emit_signal("number_input",2)
+			_on_mouse_up()
 
 # When the 3 button is pressed, announce the number input
 func _on_Label3Body_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed == true:
 			number_intent = true
+			$Control/Label3Body/LabelSprite.modulate = button_press_color
 		if event.button_index == BUTTON_LEFT and event.pressed == false:
 			Events.emit_signal("number_input",3)
+			_on_mouse_up()
 
 # When the 4 button is pressed, announce the number input
 func _on_Label4Body_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed == true:
 			number_intent = true
+			$Control/Label4Body/LabelSprite.modulate = button_press_color
 		if event.button_index == BUTTON_LEFT and event.pressed == false:
 			Events.emit_signal("number_input",4)
+			_on_mouse_up()
 
 # When the 5 button is pressed, announce the number input
 func _on_Label5Body_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed == true:
 			number_intent = true
+			$Control/Label5Body/LabelSprite.modulate = button_press_color
 		if event.button_index == BUTTON_LEFT and event.pressed == false:
 			Events.emit_signal("number_input",5)
+			_on_mouse_up()
 
 # When the 6 button is pressed, announce the number input
 func _on_Label6Body_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed == true:
 			number_intent = true
+			$Control/Label6Body/LabelSprite.modulate = button_press_color
 		if event.button_index == BUTTON_LEFT and event.pressed == false:
 			Events.emit_signal("number_input",6)
+			_on_mouse_up()
 
 # When the 7 button is pressed, announce the number input
 func _on_Label7Body_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed == true:
 			number_intent = true
+			$Control/Label7Body/LabelSprite.modulate = button_press_color
 		if event.button_index == BUTTON_LEFT and event.pressed == false:
 			Events.emit_signal("number_input",7)
+			_on_mouse_up()
 
 # When the 8 button is pressed, announce the number input
 func _on_Label8Body_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed == true:
 			number_intent = true
+			$Control/Label8Body/LabelSprite.modulate = button_press_color
 		if event.button_index == BUTTON_LEFT and event.pressed == false:
 			Events.emit_signal("number_input",8)
+			_on_mouse_up()
 
 # When the 9 button is pressed, announce the number input
 func _on_Label9Body_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed == true:
 			number_intent = true
+			$Control/Label9Body/LabelSprite.modulate = button_press_color
 		if event.button_index == BUTTON_LEFT and event.pressed == false:
 			Events.emit_signal("number_input",9)
+			_on_mouse_up()
 
 # When HUD is engaged and non-button space is pressed, disengage the HUD
 func _on_BlankSpace_input_event(viewport, event, shape_idx):
@@ -131,6 +152,7 @@ func _on_BlankSpace_input_event(viewport, event, shape_idx):
 			Events.emit_signal("hud_disengage")
 		elif event.button_index == BUTTON_LEFT and event.pressed == false and number_intent == true:
 			number_intent = false
+			_on_mouse_up()
 
 # For Easy mode, make it so the HUD knows which numbers to display (which correct values have not been used in the same row, column, or block of spaces)
 func _on_hud_value_disable(disable_array):
@@ -145,3 +167,16 @@ func _on_hud_value_reset():
 		get_node("Control/Label" + str(num) + "Body").input_pickable = true
 		get_node("Control/Label" + str(num) + "Body").visible = true
 		disabled[num] = false
+
+# Resets the visible state of all buttons in the HUD
+func _on_mouse_up():
+	pass
+	$Control/Label1Body/LabelSprite.modulate = Color(1,1,1)
+	$Control/Label2Body/LabelSprite.modulate = Color(1,1,1)
+	$Control/Label3Body/LabelSprite.modulate = Color(1,1,1)
+	$Control/Label4Body/LabelSprite.modulate = Color(1,1,1)
+	$Control/Label5Body/LabelSprite.modulate = Color(1,1,1)
+	$Control/Label6Body/LabelSprite.modulate = Color(1,1,1)
+	$Control/Label7Body/LabelSprite.modulate = Color(1,1,1)
+	$Control/Label8Body/LabelSprite.modulate = Color(1,1,1)
+	$Control/Label9Body/LabelSprite.modulate = Color(1,1,1)

@@ -30,6 +30,9 @@ signal space_win_state(space,valid,num,first)
 # The current game has been won
 signal game_won()
 
+# The current game has been lost - only for Difficult mode
+signal game_lost()
+
 # When the game was won, it was with [moves] and [time]
 signal game_win_stats(moves,time)
 
