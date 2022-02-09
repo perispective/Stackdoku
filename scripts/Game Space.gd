@@ -18,6 +18,9 @@ var space_value = 0
 #what is the numeric input for this space
 var space_input = 0
 
+#game is lost flag
+var game_is_lost = false
+
 #signal for select_space and deselect_space functions
 signal select_completed
 signal deselect_completed
@@ -39,6 +42,7 @@ func _ready():
 	Events.connect("clear_game_board",self,"_on_clear_board")
 	Events.connect("new_game_start",self,"_on_new_game_start")
 	Events.connect("toggle_camera",self,"_on_toggle_camera")
+	Events.connect("game_lost",self,"_on_game_lost")
 	Events.emit_signal("adjust_space_size",self.name,space_value - space_input + 1)
 	if space_input == 0:
 		$"Label Sprite/Label Viewport/Game Space Label".text = ""
@@ -57,12 +61,12 @@ func _ready():
 #check for when the area for this game space has been selected
 func _on_Game_Space_Area_input_event(camera, event, position, normal, shape_idx):
 	if event is InputEventMouseButton:
-		if event.button_index == BUTTON_LEFT and event.pressed == true and space_is_selectable == true:
+		if event.button_index == BUTTON_LEFT and event.pressed == true and space_is_selectable == true and game_is_lost == false:
 			if space_is_selected == false:
 				select_intent = true
 			else:
 				select_intent = true
-		elif event.button_index == BUTTON_LEFT and event.pressed == false and space_is_selectable == true:
+		elif event.button_index == BUTTON_LEFT and event.pressed == false and space_is_selectable == true and game_is_lost == false:
 			if select_intent == true:
 				if space_is_selected == false:
 					select_space()
@@ -73,15 +77,15 @@ func _on_Game_Space_Area_input_event(camera, event, position, normal, shape_idx)
 		else:
 			select_intent = false
 
-func test(camera,event,position,normal,shape_idx):
-	if event is InputEventMouseButton:
-		if event.button_index == BUTTON_LEFT and event.pressed == false and space_is_selectable == true: #when a space is clicked and it's selectable
-			if space_is_selected == false: #if this space isn't currently selected...
-				select_space()
-				Events.emit_signal("space_has_been_clicked_on",self.name) #notify the world it's been clicked on
-			else:
-				deselect_space()
-				Events.emit_signal("space_has_been_clicked_off") #otherwise, notify the world it's been clicked off
+#func test(camera,event,position,normal,shape_idx):
+#	if event is InputEventMouseButton:
+#		if event.button_index == BUTTON_LEFT and event.pressed == false and space_is_selectable == true: #when a space is clicked and it's selectable
+#			if space_is_selected == false: #if this space isn't currently selected...
+#				select_space()
+#				Events.emit_signal("space_has_been_clicked_on",self.name) #notify the world it's been clicked on
+#			else:
+#				deselect_space()
+#				Events.emit_signal("space_has_been_clicked_off") #otherwise, notify the world it's been clicked off
 
 #state change for this space when it's been selected
 func select_space():
@@ -163,6 +167,8 @@ func _on_board_space_selected(valid: bool):
 func _on_hud_disengage() -> void:
 	if space_is_selected == true:
 		deselect_space()
+	elif game_is_lost == true:
+		pass
 	else:
 		space_is_selectable = true #make this space *selectable*, then...
 		$"Game Space Cube/Game Space Area".input_ray_pickable = true
@@ -174,15 +180,14 @@ func _on_number_input(value: int):
 	if space_is_selected == true: #confirm it is this space	
 		if value == space_value: #If the new input value is correct, tell the world
 			Events.emit_signal("space_win_state",self.name,true,value,false)
-			#if difficulty == 1:
-				#base_material = correct_material
+		elif value > space_value and difficulty == 3: #Or if the difficulty is set to Difficult and the input is > the space value, you lose
+			Events.emit_signal("game_lost")
+			print("Game lost")
 		else: #Otherwise, tell them the new input value is false...
 			if space_input > 0: #Unless this is the first time, then don't emit the signal
 				Events.emit_signal("space_win_state",self.name,false,value,false)
 			else:
 				Events.emit_signal("space_win_state",self.name,false,value,true)
-			#if difficulty == 1:
-				#base_material = wrong_material
 		space_input = value #update the input value
 		$"Label Sprite/Label Viewport/Game Space Label".text = str(space_input)
 		adjust_size()
@@ -214,10 +219,20 @@ func _on_set_difficulty(value):
 # Reset game space materials on new game / clear board
 func _on_clear_board():
 	determine_space_color()
+	space_is_selectable = false
+	game_is_lost = false
 
 # When a new game starts, make the space selectable 
 func _on_new_game_start():
 	space_is_selectable = true
+	game_is_lost = false
+
+# When the game is lost, make all spaces unselectable
+func _on_game_lost():
+	space_is_selectable = false
+	game_is_lost = true
+	if space_input != 0 and game_is_lost:
+		print("Game space " + self.name + " acks game lost")
 
 # When in bird's eye view (Cam 2), add a visible top-down outline effect
 func _on_toggle_camera(number):

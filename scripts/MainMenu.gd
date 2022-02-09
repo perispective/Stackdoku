@@ -6,6 +6,8 @@ var high_score_list
 var new_high_score_move
 var new_high_score_time
 var new_high_score_pos
+var orange_green = float(145) / float(255)
+var orange_blue = float(105) / float(255)
 
 # Establishes connection to game win event, sets menu fonts, and loads high scores
 func _ready():
@@ -14,9 +16,13 @@ func _ready():
 	high_score_list = {}
 	high_score_list = _high_score_load()
 	_set_fonts()
+	print(str(orange_green) + " " + str(orange_blue))
 
 #Sets up fonts for all the labels... I'm sure there's a less gross way to do this
 func _set_fonts():
+	var dynamic_font_xxs = DynamicFont.new() # Extra Extra Small Font
+	dynamic_font_xxs.font_data = load("res://assets/open-sans.regular.ttf")
+	dynamic_font_xxs.size = 16
 	var dynamic_font_xs = DynamicFont.new() # Extra Small Font
 	dynamic_font_xs.font_data = load("res://assets/open-sans.regular.ttf")
 	dynamic_font_xs.size = 22
@@ -43,6 +49,9 @@ func _set_fonts():
 	$"Options Menu/Check Normal".set("custom_fonts/font", dynamic_font_xs)
 	$"Options Menu/Check Difficult".set("custom_fonts/font", dynamic_font_xs)
 	$"Options Menu/Options Close Button".set("custom_fonts/font", dynamic_font_xs)
+	$"Options Menu/Hints Label".set("custom_fonts/font", dynamic_font_xxs)
+	$"Options Menu/Valid Label".set("custom_fonts/font", dynamic_font_xxs)
+	$"Options Menu/Lose Label".set("custom_fonts/font", dynamic_font_xxs)
 	$"High Score Menu/Moves Label".set("custom_fonts/font", dynamic_font_xs)
 	$"High Score Menu/Time Label".set("custom_fonts/font", dynamic_font_xs)
 	$"Info Menu/Info Label 1".set("custom_fonts/font", dynamic_font_xs)
@@ -183,12 +192,30 @@ func _on_Game_Sound_gui_input(event):
 # Adjusts the difficulty depending on which difficulty check is in the toggled state
 func _on_Check_Easy_toggled(button_pressed):
 	Events.emit_signal("set_difficulty",1)
+	$"Options Menu/Hints Label".text = "- Color-coded hints on right + wrong guesses"
+	$"Options Menu/Valid Label".text = "- Lock invalid inputs on correct number guesses"
+	$"Options Menu/Lose Label".text = "- Play 'til you win"
+	$"Options Menu/Hints Label".add_color_override("font_color",Color(0.0,0.95,1.0,1.0))
+	$"Options Menu/Valid Label".add_color_override("font_color",Color(0.0,0.95,1.0,1.0))
+	$"Options Menu/Lose Label".add_color_override("font_color",Color(0.0,0.95,1.0,1.0))
 
 func _on_Check_Normal_toggled(button_pressed):
 	Events.emit_signal("set_difficulty",2)
+	$"Options Menu/Hints Label".text = "- No color-coded visual hints on guesses"
+	$"Options Menu/Valid Label".text = "- Input any number in any space, even wrong ones"
+	$"Options Menu/Lose Label".text = "- Play 'til you win"
+	$"Options Menu/Hints Label".add_color_override("font_color",Color(1.0,orange_green,orange_blue,1.0))
+	$"Options Menu/Valid Label".add_color_override("font_color",Color(1.0,orange_green,orange_blue,1.0))
+	$"Options Menu/Lose Label".add_color_override("font_color",Color(0.0,0.95,1.0,1.0))
 
 func _on_Check_Difficult_toggled(button_pressed):
 	Events.emit_signal("set_difficulty",3)
+	$"Options Menu/Hints Label".text = "- No color-coded visual hints on guesses"
+	$"Options Menu/Valid Label".text = "- Input any number in any space, even wrong ones"
+	$"Options Menu/Lose Label".text = "- Lose if you guess too high for a space"
+	$"Options Menu/Hints Label".add_color_override("font_color",Color(1.0,orange_green,orange_blue,1.0))
+	$"Options Menu/Valid Label".add_color_override("font_color",Color(1.0,orange_green,orange_blue,1.0))
+	$"Options Menu/Lose Label".add_color_override("font_color",Color(1.0,orange_green,orange_blue,1.0))
 
 # Adjusts the camera between Angled (1) and Bird's Eye (2) views when the button is toggled
 func _on_Camera_Button_toggled(button_pressed):
@@ -198,4 +225,3 @@ func _on_Camera_Button_toggled(button_pressed):
 	else: # !Pressed = Angled (Default)
 		Events.emit_signal("toggle_camera",1)
 		$"In-Game Menu/Camera Label".text = "Angle"
-	

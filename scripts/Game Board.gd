@@ -34,6 +34,7 @@ func _ready():
 	Events.connect("button_press",self,"_on_button_press")
 	Events.connect("set_difficulty",self,"_on_set_difficulty")
 	Events.connect("toggle_camera",self,"_on_toggle_camera")
+	Events.connect("game_lost",self,"_on_game_lost")
 	domains = {}
 	spaces_won = {}
 	spaces_used = {}
@@ -148,6 +149,7 @@ func _on_new_game_start() -> void:
 	$MainMenu.get_child(4).hide()
 	$MainMenu.get_child(5).hide()
 	$MainMenu.get_child(6).hide()
+	$MainMenu.get_child(7).hide()
 	if music_enabled:
 		$Music.play()
 
@@ -234,6 +236,7 @@ func _on_clear_game_board():
 	$MainMenu.get_child(4).hide()
 	$MainMenu.get_child(5).hide()
 	$MainMenu.get_child(6).hide()
+	$MainMenu.get_child(7).hide()
 	if (domains.size() > 0):
 		for key in domains.keys():
 			domains[key] = 0
@@ -244,6 +247,19 @@ func _on_clear_game_board():
 # Adjusts the local difficulty variable based on the selected game difficulty level
 func _on_set_difficulty(value):
 	difficulty = value
+	if value == 1:
+		$"Birds Eye View".environment.background_color = Color(0.54,0.9,0.7,1.0)
+		$"Player View".environment.background_color = Color(0.54,0.9,0.7,1.0)
+	elif value == 3:
+		$"Birds Eye View".environment.background_color = Color(0.56,0.52,0.8,1.0)
+		$"Player View".environment.background_color = Color(0.56,0.52,0.8,1.0)
+	else:
+		$"Birds Eye View".environment.background_color = Color(0.0,0.95,1.0,1.0)
+		$"Player View".environment.background_color = Color(0.0,0.95,1.0,1.0)
+
+# When the game is lost, disable game space edits and display the "Game lost" menu
+func _on_game_lost():
+	$MainMenu.get_child(7).show()
 
 # Toggles the camera and related controls between angled/ortho and bird's eye/top-down views
 func _on_toggle_camera(number):
